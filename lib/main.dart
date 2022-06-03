@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/detail_cocktail.dart';
 
-import 'home.dart';
-
 void main() {
   return runApp(MyApp());
 }
