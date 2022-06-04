@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/bottom_nav_bar/BottomNavBar.dart';
 import 'package:saucey/home/views/items/item_card_cocktail.dart';
-
 import 'items/search_bar.dart';
 
 class Home extends StatelessWidget {
@@ -77,6 +77,7 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
