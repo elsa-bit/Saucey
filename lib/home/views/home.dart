@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/items/item_card_cocktail.dart';
-import 'package:saucey/items/search_bar.dart';
+import 'items/item_card_cocktail.dart';
+import 'items/search_bar.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            //Top Logo
+            /** Top Logo **/
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Center(
@@ -22,12 +22,12 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            //Search Bar
+            /** Search Bar **/
             const Padding(
               padding: EdgeInsets.only(bottom: 25, right: 15, left: 15),
               child: SearchBar(),
             ),
-            //Image banner
+            /** Image Banner **/
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Stack(
@@ -59,6 +59,7 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
+            /** Item Card for future list **/
             ItemCardCocktail(),
           ],
         ),
