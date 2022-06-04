@@ -11,7 +11,6 @@ class Detail extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               width: double.infinity,
@@ -20,50 +19,58 @@ class Detail extends StatelessWidget {
                 fit: BoxFit.fitWidth,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  height: 20,
-                  width: 66,
-                  decoration: BoxDecoration(
-                    color: Colors.beige,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    width: double.infinity,
-                    child: Text(
-                      'Alcoholic',
-                      style: TextStyle(fontSize: 11, color: Colors.black),
+            Container(
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 20,
+                    width: 66,
+                    decoration: BoxDecoration(
+                      color: Colors.beige,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      width: double.infinity,
+                      child: Text(
+                        'Alcoholic',
+                        style: TextStyle(fontSize: 11, color: Colors.black),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Rosemary Blue",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 24),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "15,30€",
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                )
-              ],
+                ],
+              ),
             ),
             Container(
-              height: 20,
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Rosemary Blue",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 24),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "15,30€",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: 80,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -86,6 +93,7 @@ class Detail extends StatelessWidget {
               children: [
                 Container(
                   width: 100,
+                  height: 70,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -106,91 +114,97 @@ class Detail extends StatelessWidget {
                     ],
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Rosemary",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Text(
-                      "Tonic water",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
                 Container(
+                  height: 72,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height:15,
-                        child: Text(
-                          "How it's made ?",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.bordeau,
-                              fontSize: 16),
+                      Text(
+                        "Rosemary",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
                         ),
                       ),
-                      CustomPaint(
-                        size: Size(20, 20),
-                        painter: MyPainter2(),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "\u2022 Mettre des glacons",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 11,
-                            ),
-                          ),
-                          Text(
-                            "\u2022 Mettre de la vodka",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 11,
-                            ),
-                          ),
-                          Text(
-                            "\u2022 Rajouter le citron",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ],
-                      ),
+                      Text(
+                        "Tonic water",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                        ),
+                      )
                     ],
                   ),
-                ),
+                )
               ],
+            ),
+            Container(
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height:15,
+                          child: Text(
+                            "How it's made ?",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.bordeau,
+                                fontSize: 16),
+                          ),
+                        ),
+                        CustomPaint(
+                          size: Size(20, 20),
+                          painter: MyPainter2(),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "\u2022 Mettre des glacons",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 11,
+                              ),
+                            ),
+                            Text(
+                              "\u2022 Mettre de la vodka",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 11,
+                              ),
+                            ),
+                            Text(
+                              "\u2022 Rajouter le citron",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 30,
+                  height: 35,
                   width: 120,
                   decoration: BoxDecoration(
                     color: Colors.bordeau,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 13, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
                     width: double.infinity,
                     child: Text(
                       'Ajouter au panier',
