@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'items/item_card_cocktail.dart';
+import 'package:saucey/home/views/items/item_card_cocktail.dart';
+
 import 'items/search_bar.dart';
 
 class Home extends StatelessWidget {
@@ -60,7 +61,19 @@ class Home extends StatelessWidget {
               ),
             ),
             /** Item Card for future list **/
-            ItemCardCocktail(),
+            Expanded(
+              child: GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: MediaQuery.of(context).size.width /
+                        (MediaQuery.of(context).size.height / 1.28)),
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return ItemCardCocktail();
+                },
+              ),
+            ),
           ],
         ),
       ),
