@@ -10,7 +10,7 @@ class SearchBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Expanded(
-            flex: 5,
+            flex: 6,
             child: TextField(
               decoration: InputDecoration(
                   isDense: true,
@@ -34,6 +34,12 @@ class SearchBar extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                ),
                 primary: const Color(0xff8C0E13),
               ),
               child: const Padding(
