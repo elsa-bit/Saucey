@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/bottom_nav_bar/BottomNavBar.dart';
-import 'package:saucey/home/views/items/item_card_cocktail.dart';
+import 'package:saucey/utils/custom_views/item_card_cocktail.dart';
 
 import '../../utils/custom_views/search_bar.dart';
 
