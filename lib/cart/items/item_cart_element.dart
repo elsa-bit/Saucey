@@ -25,7 +25,6 @@ class ItemCartElement extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  //margin: EdgeInsets.only(top: 20),
                   width: 350,
                   height: 77,
                   decoration: BoxDecoration(
