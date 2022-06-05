@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saucey/cart/items/item_cart_element.dart';
-import 'package:saucey/customs/MyColors.dart';
 
 import '../../bottom_nav_bar/BottomNavBar.dart';
+import '../../utils/MyColors.dart';
 
 class Cart extends StatelessWidget {
   Cart({Key? key}) : super(key: key);
