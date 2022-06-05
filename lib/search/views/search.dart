@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:saucey/search/views/items/filter_button_search.dart';
 import 'package:saucey/utils/MyColors.dart';
 
-import '../../bottom_nav_bar/BottomNavBar.dart';
 import '../../home/views/items/item_card_cocktail.dart';
 import '../../utils/custom_views/search_bar.dart';
 
@@ -83,7 +82,6 @@ class Search extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
