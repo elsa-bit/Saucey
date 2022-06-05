@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:saucey/search/views/items/filter_button_search.dart';
 import 'package:saucey/utils/MyColors.dart';
 
+import '../../bottom_nav_bar/BottomNavBar.dart';
+import '../../home/views/items/item_card_cocktail.dart';
 import '../../utils/custom_views/search_bar.dart';
 
 class Search extends StatelessWidget {
@@ -64,9 +66,24 @@ class Search extends StatelessWidget {
                 buttonName: "By ingredient",
               )
             ],
-          )
+          ),
+          /** Item Card for future list **/
+          Expanded(
+            child: GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 1.28)),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return ItemCardCocktail();
+              },
+            ),
+          ),
         ],
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
