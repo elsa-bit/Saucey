@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saucey/cart/items/item_cart_element.dart';
 import 'package:saucey/customs/MyColors.dart';
@@ -44,28 +45,22 @@ class Cart extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 160,
-                      child: ItemCartElement(
-                          photo: 'assets/images/red_cocktail.png',
-                          name: 'Planter\'s Punch',
-                          category: 'Tropical',
-                          price: '15€'),
-                    ),
-                  ],
+            Container(
+              width: double.infinity,
+              height: 380,
+              child: ListView.builder(
+                itemBuilder: (context, index) => Container(
+                  width: double.infinity,
+                  height: 100,
+                  child: ItemCartElement(
+                      photo: 'assets/images/red_cocktail.png',
+                      name: 'Planter\'s Punch',
+                      category: 'Tropical',
+                      price: '15€'),
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: 28),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
