@@ -8,6 +8,15 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
+
+  int _selectedItem = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedItem = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,8 +43,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ),
               label: 'Cart'),
         ],
+        currentIndex: _selectedItem,
         unselectedItemColor: Color(0xff8C0E13),
         selectedItemColor: Color(0xffFFAF9A),
+        onTap: _onItemTapped,
       ),
     );
   }
