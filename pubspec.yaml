@@ -65,6 +65,11 @@ flutter:
     - assets/images/fleche.png
     - assets/saucey_logo.png
     - assets/images/category_party.jpg
+    - assets/images/category_sparkling.jpeg
+    - assets/images/category_stylish.jpeg
+    - assets/images/category_tropical.jpeg
+    - assets/images/category_no_alcoholic.jpeg
+    - assets/images/category_famous.jpeg
     - assets/images/barman.png
     - assets/images/red_cocktail.png
 

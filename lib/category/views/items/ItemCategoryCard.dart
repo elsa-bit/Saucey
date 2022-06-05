@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ItemCategoryCard extends StatelessWidget {
-  const ItemCategoryCard({Key? key}) : super(key: key);
+
+  final String urlImage;
+  final String textCard;
+
+  const ItemCategoryCard({Key? key, required this.urlImage, required this.textCard}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,20 +16,31 @@ class ItemCategoryCard extends StatelessWidget {
           Container(
             width: 150,
             height: 150,
-            child: Image.asset(
-              'assets/images/category_party.jpg',
-              fit: BoxFit.contain,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image.asset(
+                urlImage,
+                fit: BoxFit.contain,
+                color: Colors.white.withOpacity(0.4),
+                colorBlendMode: BlendMode.modulate,
+              ),
             ),
           ),
-          Align(
+          Container(
+            width: 150,
+            height: 150,
             alignment: Alignment.center,
             child: Text(
-              "Coucou",
+              textCard,
               style: TextStyle(
-                  color: Colors.white,
                   fontFamily: 'Prompt',
                   fontWeight: FontWeight.bold,
-                  fontSize: 20),
+                  fontSize: 20,
+                  color: Colors.white),
             ),
           ),
         ],
