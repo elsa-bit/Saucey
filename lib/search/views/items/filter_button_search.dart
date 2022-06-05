@@ -19,7 +19,10 @@ class FilterButtonSearch extends StatelessWidget {
           onPressed: () {},
           child: Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-            child: Text("Coucou"),
+            child: Text(
+              buttonName,
+              style: TextStyle(fontSize: 12),
+            ),
           ),
           style: TextButton.styleFrom(
             primary: Colors.white,
