@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/cart/views/cart_cocktail.dart';
 
 import 'home/views/home.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
+      home: Cart(),
     );
   }
 }
