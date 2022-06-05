@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/details/views/detail_cocktail.dart';
+
+import 'home/views/home.dart';
 
 void main() {
   return runApp(MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Detail(),
+      home: Home(),
     );
   }
 }
