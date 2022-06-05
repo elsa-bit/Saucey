@@ -5,8 +5,15 @@ import 'package:saucey/utils/MyColors.dart';
 import '../../home/views/items/item_card_cocktail.dart';
 import '../../utils/custom_views/search_bar.dart';
 
-class Search extends StatelessWidget {
+class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
+
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
+  final List<bool> _selectedStatus = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -53,15 +60,30 @@ class Search extends StatelessWidget {
           Row(
             children: [
               FilterButtonSearch(
-                isSelected: false,
+                setSelectedStatus: (bool value) {
+                  setState(() {
+                    _selectedStatus[0] = value;
+                  });
+                },
+                isSelected: _selectedStatus[0],
                 buttonName: "No-alcoholic",
               ),
               FilterButtonSearch(
-                isSelected: false,
+                setSelectedStatus: (bool value) {
+                  setState(() {
+                    _selectedStatus[1] = value;
+                  });
+                },
+                isSelected: _selectedStatus[1],
                 buttonName: "By name",
               ),
               FilterButtonSearch(
-                isSelected: false,
+                setSelectedStatus: (bool value) {
+                  setState(() {
+                    _selectedStatus[2] = value;
+                  });
+                },
+                isSelected: _selectedStatus[2],
                 buttonName: "By ingredient",
               )
             ],

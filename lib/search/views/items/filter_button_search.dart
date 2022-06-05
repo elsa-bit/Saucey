@@ -4,9 +4,13 @@ import 'package:saucey/utils/MyColors.dart';
 class FilterButtonSearch extends StatelessWidget {
   final bool isSelected;
   final String buttonName;
+  final Function(bool) setSelectedStatus;
 
   const FilterButtonSearch(
-      {Key? key, required this.isSelected, required this.buttonName})
+      {Key? key,
+      required this.isSelected,
+      required this.buttonName,
+      required this.setSelectedStatus})
       : super(key: key);
 
   @override
@@ -16,7 +20,9 @@ class FilterButtonSearch extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            setSelectedStatus(false);
+          },
           child: Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
             child: Text(
@@ -40,7 +46,9 @@ class FilterButtonSearch extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            setSelectedStatus(true);
+          },
           child: Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
             child: Text(
