@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/cart/items/item_cart_element.dart';
 import 'package:saucey/customs/MyColors.dart';
 
 import '../../bottom_nav_bar/BottomNavBar.dart';
@@ -48,98 +49,16 @@ class Cart extends StatelessWidget {
                 padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
                 scrollDirection: Axis.vertical,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stack(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 40),
-                                width: 350,
-                                height: 77,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 4,
-                                      offset: Offset(4, 8), // Shadow position
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 45, left: 15),
-                                child: Image.asset(
-                                    'assets/images/red_cocktail.png'),
-                              ),
-                            ],
-                          ),
-                          Stack(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 25),
-                                width: 350,
-                                height: 77,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 4,
-                                      offset: Offset(4, 8), // Shadow position
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Stack(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 25),
-                                width: 350,
-                                height: 77,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 4,
-                                      offset: Offset(4, 8), // Shadow position
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Stack(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 25),
-                                width: 350,
-                                height: 77,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 4,
-                                      offset: Offset(4, 8), // Shadow position
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                      width: double.infinity,
+                      height: 160,
+                      child: ItemCartElement(
+                          photo: 'assets/images/red_cocktail.png',
+                          name: 'Planter\'s Punch',
+                          category: 'Tropical',
+                          price: '15€'),
                     ),
                   ],
                 ),
