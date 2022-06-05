@@ -39,7 +39,7 @@ class Home extends StatelessWidget {
                     height: 120,
                     color: Colors.black,
                     child: Image.asset(
-                      'assets/home_verre_trinque.png',
+                      'assets/images/home_verre_trinque.png',
                       fit: BoxFit.fitWidth,
                       color: Colors.white.withOpacity(0.4),
                       colorBlendMode: BlendMode.modulate,

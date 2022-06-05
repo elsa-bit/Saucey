@@ -35,7 +35,7 @@ class ItemCardCocktail extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                         child: SizedBox.fromSize(
                           size: const Size.fromRadius(35),
-                          child: Image.asset('assets/exemple_cocktail.png'),
+                          child: Image.asset('assets/images/exemple_cocktail.png'),
                         ),
                       ),
                     ),
