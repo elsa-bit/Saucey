@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/customs/MyColors.dart';
+import 'package:saucey/utils/MyColors.dart';
 
 class Detail extends StatelessWidget {
   Detail({Key? key}) : super(key: key);
