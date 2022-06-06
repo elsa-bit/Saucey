@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:saucey/utils/MyColors.dart';
 
 class Detail extends StatelessWidget {
-  Detail({Key? key}) : super(key: key);
+  String? title;
+  String? image;
+
+  Detail({Key? key, required this.title, required this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +16,32 @@ class Detail extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  width: double.infinity,
-                  child: Image.asset(
-                    'assets/images/blue.jpg',
-                    fit: BoxFit.fitWidth,
+                image != null
+                    ? Container(
+                        child: ClipRRect(
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Image.network(image!),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        child: ClipRRect(
+                          child: SizedBox.fromSize(
+                            size: const Size.fromRadius(35),
+                            child: Image.asset(
+                                'assets/images/exemple_cocktail.png'),
+                          ),
+                        ),
+                      ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: 20, top: 70),
+                    child: Image.asset('assets/images/fleche.png'),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 20, top: 70),
-                  child: Image.asset('assets/images/fleche.png'),
                 ),
               ],
             ),
@@ -63,7 +83,7 @@ class Detail extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Rosemary Blue",
+                            title!,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
