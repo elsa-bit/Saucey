@@ -2,7 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ItemCardCocktail extends StatelessWidget {
-  const ItemCardCocktail({Key? key}) : super(key: key);
+  final String? cocktailTitle;
+  final String? urlImage;
+
+  //final String? alcoholicTag;
+
+  const ItemCardCocktail({
+    Key? key,
+    required this.cocktailTitle,
+    required this.urlImage,
+    //required this.alcoholicTag
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +39,28 @@ class ItemCardCocktail extends StatelessWidget {
                 height: 90,
                 child: Stack(
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: SizedBox.fromSize(
-                          size: const Size.fromRadius(35),
-                          child: Image.asset('assets/images/exemple_cocktail.png'),
-                        ),
-                      ),
-                    ),
+                    urlImage != null
+                        ? Container(
+                            alignment: Alignment.center,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: SizedBox.fromSize(
+                                size: const Size.fromRadius(35),
+                                child: Image.network(urlImage!),
+                              ),
+                            ),
+                          )
+                        : Container(
+                            alignment: Alignment.center,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: SizedBox.fromSize(
+                                size: const Size.fromRadius(35),
+                                child: Image.asset(
+                                    'assets/images/exemple_cocktail.png'),
+                              ),
+                            ),
+                          ),
                     Align(
                       heightFactor: 5.6,
                       alignment: Alignment.bottomRight,
@@ -49,56 +71,58 @@ class ItemCardCocktail extends StatelessWidget {
                           height: 15,
                           alignment: Alignment.center,
                           color: const Color(0xffFFAF9A),
-                          child: const Text(
+                          child: Text(
                             "Alcoholic",
                             style: TextStyle(fontSize: 8),
                           ),
                         ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
               /** Cocktail title **/
-              Padding(
-                padding: const EdgeInsets.only(left: 7, top: 15),
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "Lemon Freeze Cocktail",
-                    style: TextStyle(
-                        fontFamily: 'Prompt',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12),
-                  ),
-                ),
-              ),
-              /** Ingredients text **/
-              const Padding(
-                padding: EdgeInsets.only(left: 7, top: 15),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: SizedBox(
-                    width: 100,
-                    child: Text(
-                      "Amaretto, Lime Juice, Club Soda",
-                      style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
+              cocktailTitle != null
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 10, top: 15),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          cocktailTitle!,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontFamily: 'Prompt',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(left: 7, top: 15),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "N/A",
+                          style: TextStyle(
+                              fontFamily: 'Prompt',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
               const SizedBox(
-                height: 38,
+                height: 10,
               ),
               /** Price and button to buy it **/
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(left: 10, right: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "15€",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     TextButton(
                       onPressed: () {},

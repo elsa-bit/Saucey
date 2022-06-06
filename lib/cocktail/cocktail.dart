@@ -1,10 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/utils/custom_views/item_card_cocktail.dart';
+import 'package:saucey/cocktail/viewmodel_cocktail.dart';
 
 import '../../utils/custom_views/search_bar.dart';
+import '../utils/custom_views/item_card_cocktail.dart';
+import 'data_model_cocktail.dart';
 
-class Cocktail extends StatelessWidget {
+class Cocktail extends StatefulWidget {
   const Cocktail({Key? key}) : super(key: key);
+
+  @override
+  State<Cocktail> createState() => _CocktailState();
+}
+
+class _CocktailState extends State<Cocktail> {
+  late Future<DataClassTableCocktail> futureCocktail;
+
+  gridViewOfCocktails(AsyncSnapshot<DataClassTableCocktail> snapshot) {
+    if (snapshot.data != null) {
+      return GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: MediaQuery.of(context).size.width /
+                (MediaQuery.of(context).size.height / 1.65)),
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return ItemCardCocktail(
+            cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
+            urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
+          );
+        },
+      );
+    } else {
+      return const Text("No cocktails available.");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    futureCocktail = ViewModelCocktail.fetchRandomCocktail();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +94,18 @@ class Cocktail extends StatelessWidget {
             ],
           ),
         ),
-        /** Item Card for future list **/
-        Expanded(
-          child: GridView.builder(
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 1.28)),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return ItemCardCocktail();
+        /** Call api to parse information into cards of cocktails **/
+        Flexible(
+          child: FutureBuilder<DataClassTableCocktail>(
+            future: futureCocktail,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                print('Error : ${snapshot.error}');
+                return const Text("An error occurs, try later.");
+              } else if (snapshot.hasData) {
+                return gridViewOfCocktails(snapshot);
+              }
+              return const CircularProgressIndicator();
             },
           ),
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:saucey/search/views/items/filter_button_search.dart';
 import 'package:saucey/utils/MyColors.dart';
 
-import '../../utils/custom_views/item_card_cocktail.dart';
 import '../../utils/custom_views/search_bar.dart';
 
 class Search extends StatefulWidget {
@@ -89,7 +88,7 @@ class _SearchState extends State<Search> {
             ],
           ),
           /** Item Card for future list **/
-          Expanded(
+          /*Expanded(
             child: GridView.builder(
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -101,7 +100,7 @@ class _SearchState extends State<Search> {
                 return ItemCardCocktail();
               },
             ),
-          ),
+          ),*/
         ],
       ),
     );
