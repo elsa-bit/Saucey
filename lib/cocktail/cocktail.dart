@@ -13,7 +13,6 @@ class Cocktail extends StatefulWidget {
 }
 
 class _CocktailState extends State<Cocktail> {
-  //late Future<List<DataClassCocktail>> futureListOfCocktail;
   late Future<DataClassTableCocktail> futureCocktail;
 
   gridViewOfCocktails(AsyncSnapshot<DataClassTableCocktail> snapshot) {
@@ -23,13 +22,12 @@ class _CocktailState extends State<Cocktail> {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: MediaQuery.of(context).size.width /
-                (MediaQuery.of(context).size.height / 1.28)),
-        itemCount: 1,
+                (MediaQuery.of(context).size.height / 1.65)),
+        itemCount: 10,
         itemBuilder: (context, index) {
           return ItemCardCocktail(
-            cocktailTitle: snapshot.data?.dataClassCocktail[0].nameCocktail,
-            urlImage: snapshot.data?.dataClassCocktail[0].urlImage,
-            alcoholicTag: snapshot.data?.dataClassCocktail[0].alcoholic,
+            cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
+            urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
           );
         },
       );
@@ -41,11 +39,7 @@ class _CocktailState extends State<Cocktail> {
   @override
   void initState() {
     super.initState();
-    //futureListOfCocktail = ViewModelCocktail.fetchListOfRandomCocktails();
     futureCocktail = ViewModelCocktail.fetchRandomCocktail();
-
-    futureCocktail
-        .then((value) => {print("les values de cocktail : ${value}")});
   }
 
   @override
@@ -100,20 +94,7 @@ class _CocktailState extends State<Cocktail> {
             ],
           ),
         ),
-        /** Item Card for future list **/
-        /*Expanded(
-          child: GridView.builder(
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 1.28)),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return ItemCardCocktail();
-            },
-          ),
-        ),*/
+        /** Call api to parse information into cards of cocktails **/
         Flexible(
           child: FutureBuilder<DataClassTableCocktail>(
             future: futureCocktail,
