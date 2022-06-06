@@ -86,7 +86,21 @@ class _SpecialCategoryState extends State<SpecialCategory> {
             ),
           ),
           /** Item Card for future list **/
+          widget.title == "Non Alcoholic" ?
           Flexible(
+            child: FutureBuilder<DataClassTableCocktail>(
+              future: futureNoAlcoholic,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print('Error : ${snapshot.error}');
+                  return const Text("An error occurs, try later.");
+                } else if (snapshot.hasData) {
+                  return gridViewOfCocktails(snapshot);
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+          ):Flexible(
             child: FutureBuilder<DataClassTableCocktail>(
               future: futureCocktail,
               builder: (context, snapshot) {
@@ -99,7 +113,7 @@ class _SpecialCategoryState extends State<SpecialCategory> {
                 return const CircularProgressIndicator();
               },
             ),
-          ),
+          )
         ],
       ),
     );
