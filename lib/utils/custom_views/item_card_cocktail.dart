@@ -7,7 +7,7 @@ class ItemCardCocktail extends StatelessWidget {
 
   //final String? alcoholicTag;
 
-  const ItemCardCocktail({
+  const ItemCardCocktail( {
     Key? key,
     required this.cocktailTitle,
     required this.urlImage,
