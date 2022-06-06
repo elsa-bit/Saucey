@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+  final Function(int) setIndexOfButton;
+
+  const BottomNavBar({Key? key, required this.setIndexOfButton})
+      : super(key: key);
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-
   int _selectedItem = 0;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedItem = index;
+      widget.setIndexOfButton(index);
     });
   }
 
@@ -31,7 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               icon: Icon(
                 Icons.local_bar,
               ),
-              label: 'Home'),
+              label: 'Cocktail'),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.grid_view,
