@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/utils/constants.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  final String fromWhichActivity;
+
+  const SearchBar({Key? key, required this.fromWhichActivity})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,14 @@ class SearchBar extends StatelessWidget {
           ),
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                if (fromWhichActivity == Constants.FROM_COCKTAIL_ACTIVITY) {
+                  print("from cocktail activity");
+                } else if (fromWhichActivity ==
+                    Constants.FROM_SEARCH_ACTIVITY) {
+                  print("from search activity");
+                }
+              },
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/search/views/items/filter_button_search.dart';
 import 'package:saucey/utils/MyColors.dart';
+import 'package:saucey/utils/constants.dart';
 
 import '../../utils/custom_views/search_bar.dart';
 
@@ -53,7 +54,9 @@ class _SearchState extends State<Search> {
           /** SearchBar **/
           Padding(
             padding: EdgeInsets.only(bottom: 15, right: 15, left: 15, top: 25),
-            child: SearchBar(),
+            child: SearchBar(
+              fromWhichActivity: Constants.FROM_SEARCH_ACTIVITY,
+            ),
           ),
           /** Filter buttons **/
           Row(

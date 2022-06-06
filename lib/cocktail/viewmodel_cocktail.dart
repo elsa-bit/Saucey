@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:saucey/cocktail/data_model_cocktail.dart';
+import 'package:saucey/utils/data_model_cocktail.dart';
 
 class ViewModelCocktail {
   static Future<DataClassTableCocktail> fetchRandomCocktail() async {

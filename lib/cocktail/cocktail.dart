@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/cocktail/viewmodel_cocktail.dart';
+import 'package:saucey/utils/constants.dart';
 
 import '../../utils/custom_views/search_bar.dart';
 import '../utils/custom_views/item_card_cocktail.dart';
-import 'data_model_cocktail.dart';
+import '../utils/data_model_cocktail.dart';
 
 class Cocktail extends StatefulWidget {
   const Cocktail({Key? key}) : super(key: key);
@@ -61,7 +62,9 @@ class _CocktailState extends State<Cocktail> {
         /** Search Bar **/
         const Padding(
           padding: EdgeInsets.only(bottom: 25, right: 15, left: 15),
-          child: SearchBar(),
+          child: SearchBar(
+            fromWhichActivity: Constants.FROM_COCKTAIL_ACTIVITY,
+          ),
         ),
         /** Image Banner **/
         Padding(
