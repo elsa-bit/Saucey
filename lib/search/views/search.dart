@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/search/views/items/filter_button_search.dart';
 import 'package:saucey/utils/MyColors.dart';
+import 'package:saucey/utils/data_model_cocktail.dart';
 
+import '../../utils/custom_views/item_card_cocktail.dart';
 import 'items/search_bar_search.dart';
 
 class Search extends StatefulWidget {
@@ -15,6 +17,28 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   final List<bool> _selectedStatus = [false, false, false];
+  //late Future<DataClassTableCocktail> _dataFromSearch;
+
+  gridViewOfCocktails(AsyncSnapshot<DataClassTableCocktail> snapshot) {
+    if (snapshot.data != null) {
+      return GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: MediaQuery.of(context).size.width /
+                (MediaQuery.of(context).size.height / 1.65)),
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return ItemCardCocktail(
+            cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
+            urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
+          );
+        },
+      );
+    } else {
+      return const Text("No cocktail exists.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +53,7 @@ class _SearchState extends State<Search> {
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back_ios_rounded,
                       color: MyColors.bordeaux,
                     ),
@@ -38,7 +62,7 @@ class _SearchState extends State<Search> {
                     },
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 10,
                   child: Center(
                     child: Text(
@@ -56,9 +80,16 @@ class _SearchState extends State<Search> {
           ),
           /** SearchBar **/
           Padding(
-            padding: EdgeInsets.only(bottom: 15, right: 15, left: 15, top: 25),
+            padding:
+                const EdgeInsets.only(bottom: 15, right: 15, left: 15, top: 25),
             child: SearchBarFromSearch(
               inputFromCocktail: widget.searchInfo,
+              retrieveCocktailsData: (Future<DataClassTableCocktail> value) {
+                setState(() {
+                  print("value from search api : $value");
+                  //_dataFromSearch = value;
+                });
+              },
             ),
           ),
           /** Filter buttons **/
@@ -94,16 +125,18 @@ class _SearchState extends State<Search> {
             ],
           ),
           /** Item Card for future list **/
-          /*Expanded(
-            child: GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: MediaQuery.of(context).size.width /
-                      (MediaQuery.of(context).size.height / 1.28)),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return ItemCardCocktail();
+          /** Call api to parse information into cards of cocktails **/
+          /*Flexible(
+            child: FutureBuilder<DataClassTableCocktail>(
+              future: _dataFromSearch,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print('Error : ${snapshot.error}');
+                  return const Text("An error occurs, try later.");
+                } else if (snapshot.hasData) {
+                  return gridViewOfCocktails(snapshot);
+                }
+                return const CircularProgressIndicator();
               },
             ),
           ),*/

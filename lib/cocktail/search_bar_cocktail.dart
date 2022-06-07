@@ -16,7 +16,7 @@ class SearchBarFromCocktail extends StatelessWidget {
             flex: 6,
             child: TextField(
               controller: _inputController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   isDense: true,
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 15, vertical: 13),
@@ -42,16 +42,15 @@ class SearchBarFromCocktail extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          Search(searchInfo: setValue!),
+                      builder: (context) => Search(searchInfo: setValue!),
                     ),
                   );
                   _inputController.clear();
                   FocusScope.of(context).unfocus();
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Filled the search"),
-                    duration: const Duration(seconds: 1),
+                    duration: Duration(seconds: 1),
                   ));
                 }
               },

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/search/viewmodel_search.dart';
+import 'package:saucey/utils/data_model_cocktail.dart';
 
 class SearchBarFromSearch extends StatefulWidget {
   final String inputFromCocktail;
+  final Function(Future<DataClassTableCocktail>) retrieveCocktailsData;
 
-  const SearchBarFromSearch({Key? key, required this.inputFromCocktail})
+  const SearchBarFromSearch(
+      {Key? key,
+      required this.inputFromCocktail,
+      required this.retrieveCocktailsData})
       : super(key: key);
 
   @override
@@ -12,13 +18,18 @@ class SearchBarFromSearch extends StatefulWidget {
 
 class _SearchBarFromSearchState extends State<SearchBarFromSearch> {
   final _inputController = TextEditingController();
-  late String getInfoFromCocktail;
+  late String _getInfoFromCocktail;
+  late Future<DataClassTableCocktail> _getCocktailFromResearch;
 
   @override
   void initState() {
-    getInfoFromCocktail = widget.inputFromCocktail;
-    _inputController.text = getInfoFromCocktail;
+    _getInfoFromCocktail = widget.inputFromCocktail;
+    _inputController.text = _getInfoFromCocktail;
     super.initState();
+    _getCocktailFromResearch =
+        ViewModelSearch.searchForCocktail(_getInfoFromCocktail);
+    _getCocktailFromResearch.then((value) =>
+        print("get value ${value.dataClassCocktail[0].nameCocktail}"));
   }
 
   @override
@@ -32,7 +43,7 @@ class _SearchBarFromSearchState extends State<SearchBarFromSearch> {
             child: TextField(
               controller: _inputController,
               onChanged: (String value) {
-                getInfoFromCocktail = value;
+                _getInfoFromCocktail = value;
               },
               decoration: const InputDecoration(
                   isDense: true,
@@ -54,7 +65,10 @@ class _SearchBarFromSearchState extends State<SearchBarFromSearch> {
           ),
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                widget.retrieveCocktailsData(_getCocktailFromResearch);
+                print("get value : $_getCocktailFromResearch");
+              },
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
