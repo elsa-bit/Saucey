@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/search/views/items/filter_button_search.dart';
 import 'package:saucey/utils/MyColors.dart';
-import 'package:saucey/utils/constants.dart';
 
-import '../../utils/custom_views/search_bar.dart';
+import 'items/search_bar_search.dart';
 
 class Search extends StatefulWidget {
-  const Search({Key? key}) : super(key: key);
+  final String searchInfo;
+
+  const Search({Key? key, required this.searchInfo}) : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
@@ -32,7 +33,9 @@ class _SearchState extends State<Search> {
                       Icons.arrow_back_ios_rounded,
                       color: MyColors.bordeaux,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
                 Expanded(
@@ -54,8 +57,8 @@ class _SearchState extends State<Search> {
           /** SearchBar **/
           Padding(
             padding: EdgeInsets.only(bottom: 15, right: 15, left: 15, top: 25),
-            child: SearchBar(
-              fromWhichActivity: Constants.FROM_SEARCH_ACTIVITY,
+            child: SearchBarFromSearch(
+              inputFromCocktail: widget.searchInfo,
             ),
           ),
           /** Filter buttons **/

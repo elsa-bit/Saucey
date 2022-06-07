@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/utils/constants.dart';
 
-class SearchBar extends StatelessWidget {
-  final String fromWhichActivity;
+class SearchBarFromSearch extends StatefulWidget {
+  final String inputFromCocktail;
 
-  const SearchBar({Key? key, required this.fromWhichActivity})
+  const SearchBarFromSearch({Key? key, required this.inputFromCocktail})
       : super(key: key);
+
+  @override
+  State<SearchBarFromSearch> createState() => _SearchBarFromSearchState();
+}
+
+class _SearchBarFromSearchState extends State<SearchBarFromSearch> {
+  final _inputController = TextEditingController();
+  late String getInfoFromCocktail;
+
+  @override
+  void initState() {
+    getInfoFromCocktail = widget.inputFromCocktail;
+    _inputController.text = getInfoFromCocktail;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +27,14 @@ class SearchBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Expanded(
+          Expanded(
             flex: 6,
             child: TextField(
-              decoration: InputDecoration(
+              controller: _inputController,
+              onChanged: (String value) {
+                getInfoFromCocktail = value;
+              },
+              decoration: const InputDecoration(
                   isDense: true,
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 15, vertical: 13),
@@ -36,14 +54,7 @@ class SearchBar extends StatelessWidget {
           ),
           Expanded(
             child: ElevatedButton(
-              onPressed: () {
-                if (fromWhichActivity == Constants.FROM_COCKTAIL_ACTIVITY) {
-                  print("from cocktail activity");
-                } else if (fromWhichActivity ==
-                    Constants.FROM_SEARCH_ACTIVITY) {
-                  print("from search activity");
-                }
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(

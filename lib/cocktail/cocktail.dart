@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/cocktail/search_bar_cocktail.dart';
 import 'package:saucey/cocktail/viewmodel_cocktail.dart';
-import 'package:saucey/utils/constants.dart';
 
-import '../../utils/custom_views/search_bar.dart';
 import '../utils/custom_views/item_card_cocktail.dart';
 import '../utils/data_model_cocktail.dart';
 
@@ -62,9 +61,7 @@ class _CocktailState extends State<Cocktail> {
         /** Search Bar **/
         const Padding(
           padding: EdgeInsets.only(bottom: 25, right: 15, left: 15),
-          child: SearchBar(
-            fromWhichActivity: Constants.FROM_COCKTAIL_ACTIVITY,
-          ),
+          child: SearchBarFromCocktail(),
         ),
         /** Image Banner **/
         Padding(
