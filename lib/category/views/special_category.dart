@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/utils/MyColors.dart';
+import 'package:saucey/utils/custom_views/item_card_noAlcoholic.dart';
 
 import '../../cocktail/data_model_cocktail.dart';
 import '../../utils/custom_views/item_card_cocktail.dart';
@@ -32,6 +33,28 @@ class _SpecialCategoryState extends State<SpecialCategory> {
             cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
             urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
             id : snapshot.data?.dataClassCocktail[index].idCocktail
+          );
+        },
+      );
+    } else {
+      return const Text("No cocktails for this category available.");
+    }
+  }
+
+  gridViewOfCocktailsNoAlcoholic(AsyncSnapshot<DataClassTableCocktail> snapshot) {
+    if (snapshot.data != null) {
+      return GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: MediaQuery.of(context).size.width /
+                (MediaQuery.of(context).size.height / 1.65)),
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return ItemCardNoAlcoholic(
+              cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
+              urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
+              id : snapshot.data?.dataClassCocktail[index].idCocktail
           );
         },
       );
@@ -96,7 +119,7 @@ class _SpecialCategoryState extends State<SpecialCategory> {
                   print('Error : ${snapshot.error}');
                   return const Text("An error occurs, try later.");
                 } else if (snapshot.hasData) {
-                  return gridViewOfCocktails(snapshot);
+                  return gridViewOfCocktailsNoAlcoholic(snapshot);
                 }
                 return const CircularProgressIndicator();
               },
