@@ -28,6 +28,7 @@ class _CocktailState extends State<Cocktail> {
           return ItemCardCocktail(
             cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
             urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
+            id : snapshot.data?.dataClassCocktail[index].idCocktail
           );
         },
       );

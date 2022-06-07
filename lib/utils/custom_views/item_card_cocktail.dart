@@ -5,6 +5,7 @@ import 'package:saucey/details/views/detail_cocktail.dart';
 class ItemCardCocktail extends StatelessWidget {
   final String? cocktailTitle;
   final String? urlImage;
+  final String? id;
 
   //final String? alcoholicTag;
 
@@ -12,6 +13,7 @@ class ItemCardCocktail extends StatelessWidget {
     Key? key,
     required this.cocktailTitle,
     required this.urlImage,
+    required this.id,
     //required this.alcoholicTag
   }) : super(key: key);
 
@@ -23,7 +25,7 @@ class ItemCardCocktail extends StatelessWidget {
           context,
           MaterialPageRoute<void>(
             builder: (BuildContext context) {
-              return Detail(title: cocktailTitle, image: urlImage);
+              return Detail(id : id);
             },
           ),
         );
