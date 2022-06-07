@@ -201,17 +201,20 @@ class _DetailState extends State<Detail> {
                                 size: Size(20, 20),
                                 painter: MyPainter2(),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    inst!,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 11,
+                              Container(
+                                width: MediaQuery.of(context).size.width*0.9,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      inst!,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 11,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -255,7 +258,7 @@ class _DetailState extends State<Detail> {
     }
   }
 
-  //snapshot.data?.dataClassCocktail[index].nameCocktail
+
 
   @override
   Widget build(BuildContext context) {
