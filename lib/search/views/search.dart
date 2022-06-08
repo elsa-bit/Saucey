@@ -4,6 +4,7 @@ import 'package:saucey/utils/MyColors.dart';
 import 'package:saucey/utils/data_model_cocktail.dart';
 
 import '../../utils/custom_views/item_card_cocktail.dart';
+import '../viewmodel_search.dart';
 import 'items/search_bar_search.dart';
 
 class Search extends StatefulWidget {
@@ -16,8 +17,20 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  late bool isLoading;
   final List<bool> _selectedStatus = [false, false, false];
-  //late Future<DataClassTableCocktail> _dataFromSearch;
+  late final Future<DataClassTableCocktail> _firstResult;
+  final List<DataClassCocktail> _resultFromSearch = [];
+
+  @override
+  void initState() {
+    setState(() {
+      isLoading = true;
+      _firstResult =
+          ViewModelSearch.searchForCocktail(widget.searchInfo);
+    });
+    super.initState();
+  }
 
   gridViewOfCocktails(AsyncSnapshot<DataClassTableCocktail> snapshot) {
     if (snapshot.data != null) {
@@ -39,6 +52,29 @@ class _SearchState extends State<Search> {
       return const Text("No cocktail exists.");
     }
   }
+
+  /*gridViewOfCockTail2(List<DataClassCocktail> listOfCocktails) {
+    if (listOfCocktails.isNotEmpty && isLoading == false) {
+      return GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: MediaQuery.of(context).size.width /
+                (MediaQuery.of(context).size.height / 1.65)),
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return ItemCardCocktail(
+            cocktailTitle: listOfCocktails[index].nameCocktail,
+            urlImage: listOfCocktails[index].urlImage,
+          );
+        },
+      );
+    } else if (listOfCocktails.isEmpty && isLoading == false) {
+      return const Text("Found no cocktail");
+    } else {
+      return CircularProgressIndicator();
+    }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +120,11 @@ class _SearchState extends State<Search> {
                 const EdgeInsets.only(bottom: 15, right: 15, left: 15, top: 25),
             child: SearchBarFromSearch(
               inputFromCocktail: widget.searchInfo,
-              retrieveCocktailsData: (Future<DataClassTableCocktail> value) {
+              retrieveCocktailsData: (DataClassTableCocktail value) {
                 setState(() {
-                  print("value from search api : $value");
+                  print("value from search api : ${value.dataClassCocktail}");
+                  //_resultFromSearch.addAll(value.dataClassCocktail);
+                  //isLoading = false;
                   //_dataFromSearch = value;
                 });
               },
@@ -126,9 +164,9 @@ class _SearchState extends State<Search> {
           ),
           /** Item Card for future list **/
           /** Call api to parse information into cards of cocktails **/
-          /*Flexible(
+          Flexible(
             child: FutureBuilder<DataClassTableCocktail>(
-              future: _dataFromSearch,
+              future: _firstResult,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   print('Error : ${snapshot.error}');
@@ -139,6 +177,9 @@ class _SearchState extends State<Search> {
                 return const CircularProgressIndicator();
               },
             ),
+          ),
+          /*Flexible(
+            child: gridViewOfCockTail2(_resultFromSearch),
           ),*/
         ],
       ),

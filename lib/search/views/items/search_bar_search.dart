@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/search/viewmodel_search.dart';
 import 'package:saucey/utils/data_model_cocktail.dart';
 
 class SearchBarFromSearch extends StatefulWidget {
   final String inputFromCocktail;
-  final Function(Future<DataClassTableCocktail>) retrieveCocktailsData;
+  final Function(DataClassTableCocktail) retrieveCocktailsData;
 
   const SearchBarFromSearch(
       {Key? key,
@@ -26,10 +25,10 @@ class _SearchBarFromSearchState extends State<SearchBarFromSearch> {
     _getInfoFromCocktail = widget.inputFromCocktail;
     _inputController.text = _getInfoFromCocktail;
     super.initState();
-    _getCocktailFromResearch =
+    /*_getCocktailFromResearch =
         ViewModelSearch.searchForCocktail(_getInfoFromCocktail);
     _getCocktailFromResearch.then((value) =>
-        print("get value ${value.dataClassCocktail[0].nameCocktail}"));
+        print("get value ${value.dataClassCocktail[0].nameCocktail}"));*/
   }
 
   @override
@@ -43,7 +42,9 @@ class _SearchBarFromSearchState extends State<SearchBarFromSearch> {
             child: TextField(
               controller: _inputController,
               onChanged: (String value) {
-                _getInfoFromCocktail = value;
+                setState(() {
+                  _getInfoFromCocktail = value;
+                });
               },
               decoration: const InputDecoration(
                   isDense: true,
@@ -66,8 +67,8 @@ class _SearchBarFromSearchState extends State<SearchBarFromSearch> {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
-                widget.retrieveCocktailsData(_getCocktailFromResearch);
-                print("get value : $_getCocktailFromResearch");
+                /*_getCocktailFromResearch
+                    .then((value) => widget.retrieveCocktailsData(value));*/
               },
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(
