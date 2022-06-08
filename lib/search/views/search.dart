@@ -53,29 +53,6 @@ class _SearchState extends State<Search> {
     }
   }
 
-  /*gridViewOfCockTail2(List<DataClassCocktail> listOfCocktails) {
-    if (listOfCocktails.isNotEmpty && isLoading == false) {
-      return GridView.builder(
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: MediaQuery.of(context).size.width /
-                (MediaQuery.of(context).size.height / 1.65)),
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return ItemCardCocktail(
-            cocktailTitle: listOfCocktails[index].nameCocktail,
-            urlImage: listOfCocktails[index].urlImage,
-          );
-        },
-      );
-    } else if (listOfCocktails.isEmpty && isLoading == false) {
-      return const Text("Found no cocktail");
-    } else {
-      return CircularProgressIndicator();
-    }
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,9 +152,6 @@ class _SearchState extends State<Search> {
               },
             ),
           ),
-          /*Flexible(
-            child: gridViewOfCockTail2(_resultFromSearch),
-          ),*/
         ],
       ),
     );
