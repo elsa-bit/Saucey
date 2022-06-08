@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/utils/data_model_cocktail.dart';
 
+import '../../viewmodel_search.dart';
+
 class SearchBarFromSearch extends StatefulWidget {
   final String inputFromCocktail;
-  final Function(DataClassTableCocktail) retrieveCocktailsData;
+  final Function(Future<DataClassTableCocktail>) retrieveCocktailsData;
 
   const SearchBarFromSearch(
       {Key? key,
@@ -67,8 +69,10 @@ class _SearchBarFromSearchState extends State<SearchBarFromSearch> {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
-                /*_getCocktailFromResearch
-                    .then((value) => widget.retrieveCocktailsData(value));*/
+                _getCocktailFromResearch =
+                    ViewModelSearch.searchForCocktail(_getInfoFromCocktail);
+                widget.retrieveCocktailsData(_getCocktailFromResearch);
+                FocusScope.of(context).unfocus();
               },
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(

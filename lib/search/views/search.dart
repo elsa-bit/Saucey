@@ -19,15 +19,13 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   late bool isLoading;
   final List<bool> _selectedStatus = [false, false, false];
-  late final Future<DataClassTableCocktail> _firstResult;
-  final List<DataClassCocktail> _resultFromSearch = [];
+  late Future<DataClassTableCocktail> _firstResult;
 
   @override
   void initState() {
     setState(() {
       isLoading = true;
-      _firstResult =
-          ViewModelSearch.searchForCocktail(widget.searchInfo);
+      _firstResult = ViewModelSearch.searchForCocktail(widget.searchInfo);
     });
     super.initState();
   }
@@ -120,12 +118,9 @@ class _SearchState extends State<Search> {
                 const EdgeInsets.only(bottom: 15, right: 15, left: 15, top: 25),
             child: SearchBarFromSearch(
               inputFromCocktail: widget.searchInfo,
-              retrieveCocktailsData: (DataClassTableCocktail value) {
+              retrieveCocktailsData: (Future<DataClassTableCocktail> value) {
                 setState(() {
-                  print("value from search api : ${value.dataClassCocktail}");
-                  //_resultFromSearch.addAll(value.dataClassCocktail);
-                  //isLoading = false;
-                  //_dataFromSearch = value;
+                  _firstResult = value;
                 });
               },
             ),
