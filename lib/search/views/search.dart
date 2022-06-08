@@ -38,7 +38,9 @@ class _SearchState extends State<Search> {
             crossAxisCount: 2,
             childAspectRatio: MediaQuery.of(context).size.width /
                 (MediaQuery.of(context).size.height / 1.65)),
-        itemCount: 10,
+        itemCount: snapshot.data!.dataClassCocktail.length <= 10
+            ? snapshot.data!.dataClassCocktail.length
+            : 10,
         itemBuilder: (context, index) {
           return ItemCardCocktail(
             cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
