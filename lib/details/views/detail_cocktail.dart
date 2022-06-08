@@ -25,15 +25,40 @@ class _DetailState extends State<Detail> {
   detailCocktail(AsyncSnapshot<DataClassTableDetail> snapshot) {
     var image = snapshot.data?.dataClassDetail[0].urlImage;
     var name = snapshot.data?.dataClassDetail[0].nameCocktail;
-    var ing = snapshot.data?.dataClassDetail[0].ingredient;
+    var ing1 = snapshot.data?.dataClassDetail[0].ingredient1;
+    var ing2 = snapshot.data?.dataClassDetail[0].ingredient2;
+    var ing3 = snapshot.data?.dataClassDetail[0].ingredient3;
+    var ing4 = snapshot.data?.dataClassDetail[0].ingredient4;
     var inst = snapshot.data?.dataClassDetail[0].instruction;
     var alc = snapshot.data?.dataClassDetail[0].alcoholic;
+
+    //Rassembler tous les ingredients en une liste
+    List<String> addIngredient = [];
+    if(ing1 != null){
+      addIngredient.add(ing1);
+    }
+    if(ing2 != null){
+      addIngredient.add(ing2);
+    }
+    if(ing3 != null){
+      addIngredient.add(ing3);
+    }
+    if(ing4 != null){
+      addIngredient.add(ing4);
+    }
+
+
+    //Convertir la liste en String
+    var detailResult = addIngredient.join(" // ");
 
     if (snapshot.data != null) {
       return Column(
         children: [
           Stack(
             children: [
+              /**
+               * Image du cocktail
+               */
               Container(
                 child: ClipRRect(
                   child: SizedBox(
@@ -61,6 +86,9 @@ class _DetailState extends State<Detail> {
                 children: [
                   Container(
                     height: 40,
+                    /**
+                     * Button Alcoholic or No
+                     */
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -83,21 +111,30 @@ class _DetailState extends State<Detail> {
                       ],
                     ),
                   ),
+                  /**
+                   * Nom du cocktail
+                   */
                   Container(
                     height: 100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          name!,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 24),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            name!,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 24),
+                          ),
                         )
                       ],
                     ),
                   ),
+                  /**
+                   * Prix
+                   */
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -109,6 +146,9 @@ class _DetailState extends State<Detail> {
                       ],
                     ),
                   ),
+                  /**
+                   * Ingredients
+                   */
                   Container(
                     height: 80,
                     child: Row(
@@ -128,56 +168,26 @@ class _DetailState extends State<Detail> {
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 70,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              ing!,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              "Blue Curacao",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
-                            )
-                          ],
+                  Container(
+                    width: double.infinity,
+                    height: 70,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            padding: const EdgeInsets.all(1),
+                            children: [
+                              Text(detailResult)
+                            ],
+                          ),
                         ),
-                      ),
-                      Container(
-                        height: 72,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Rosemary",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              "Tonic water",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
+                  /**
+                   * Etape de fabrication
+                   */
                   Container(
                     height: 100,
                     child: Row(
@@ -201,10 +211,13 @@ class _DetailState extends State<Detail> {
                                 size: Size(20, 20),
                                 painter: MyPainter2(),
                               ),
+                              /**
+                               * REVOIR LE TEXT POUR PAS QUI DEPASSE !!
+                               */
                               Container(
-                                width: MediaQuery.of(context).size.width*0.9,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                height: 60,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
                                       inst!,
@@ -222,6 +235,9 @@ class _DetailState extends State<Detail> {
                       ],
                     ),
                   ),
+                  /**
+                   * Bouton d'achat
+                   */
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -258,29 +274,25 @@ class _DetailState extends State<Detail> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Flexible(
-            child: FutureBuilder<DataClassTableDetail>(
-              future: futureCocktail,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  print('Error : ${snapshot.error}');
-                  return const Text("An error occurs, try later.");
-                } else if (snapshot.hasData) {
-                  return detailCocktail(snapshot);
-                }
-                return const CircularProgressIndicator();
-              },
-            ),
+      body: Column(children: [
+        Flexible(
+          child: FutureBuilder<DataClassTableDetail>(
+            future: futureCocktail,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                print('Error : ${snapshot.error}');
+                return const Text("An error occurs, try later.");
+              } else if (snapshot.hasData) {
+                return detailCocktail(snapshot);
+              }
+              return const CircularProgressIndicator();
+            },
           ),
-        ]
-      ),
+        ),
+      ]),
     );
   }
 }
