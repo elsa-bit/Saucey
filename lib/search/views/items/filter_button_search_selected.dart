@@ -14,11 +14,12 @@ class FilterButtonSearchSelected extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0),
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: MyColors.bordeaux,
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
+        border: Border.all(color: MyColors.bordeaux),
       ),
       child: Center(
         child: Text(

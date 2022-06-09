@@ -120,12 +120,15 @@ class _SearchState extends State<Search> {
                         _selectedItem = index;
                       });
                     },
-                    child: Center(
-                        child: _selectedItem == index
-                            ? FilterButtonSearchSelected(
-                                buttonName: _listOfFilterName[index])
-                            : FilterButtonSearchNotSelected(
-                                buttonName: _listOfFilterName[index])),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 15.0),
+                      child: Center(
+                          child: _selectedItem == index
+                              ? FilterButtonSearchSelected(
+                                  buttonName: _listOfFilterName[index])
+                              : FilterButtonSearchNotSelected(
+                                  buttonName: _listOfFilterName[index])),
+                    ),
                   );
                 },
                 itemCount: 3,
