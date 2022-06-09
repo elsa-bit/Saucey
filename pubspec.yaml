@@ -73,6 +73,7 @@ flutter:
     - assets/images/category_famous.jpeg
     - assets/images/barman.png
     - assets/images/red_cocktail.png
+    - assets/images/no_cocktail_found.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

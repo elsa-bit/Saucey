@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/utils/MyColors.dart';
+import 'package:saucey/utils/custom_views/no_cocktail_found.dart';
 import 'package:saucey/utils/data_model_cocktail.dart';
 
 import '../../utils/custom_views/item_card_cocktail.dart';
@@ -110,7 +111,13 @@ class _SearchState extends State<Search> {
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   print('Error : ${snapshot.error}');
-                  return const Text("An error occurs, try later.");
+                  return const SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 60.0),
+                      child: NoCocktailFound(),
+                    ),
+                  );
                 } else if (snapshot.hasData) {
                   return gridViewOfCocktails(snapshot);
                 }
