@@ -20,7 +20,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   late bool isLoading;
   late Future<DataClassTableCocktail> _firstResult;
-  int _selectedItem = -1;
+  int _selectedItem = 0;
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    const _listOfFilterName = ["No-alcoholic", "By name", "By ingredient"];
+    const _listOfFilterName = ["By name", "By ingredient"];
     return Scaffold(
       body: Column(
         children: [
@@ -107,31 +107,31 @@ class _SearchState extends State<Search> {
             ),
           ),
           /** Filter buttons **/
-          SizedBox(
-            height: 40,
-            child: Center(
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _selectedItem = index;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 15.0),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 15.0),
+            child: SizedBox(
+              height: 40,
+              child: Center(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedItem = index;
+                        });
+                      },
                       child: Center(
                           child: _selectedItem == index
                               ? FilterButtonSearchSelected(
                                   buttonName: _listOfFilterName[index])
                               : FilterButtonSearchNotSelected(
                                   buttonName: _listOfFilterName[index])),
-                    ),
-                  );
-                },
-                itemCount: 3,
+                    );
+                  },
+                  itemCount: _listOfFilterName.length,
+                ),
               ),
             ),
           ),

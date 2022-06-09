@@ -27,10 +27,6 @@ class _SearchBarFromSearchState extends State<SearchBarFromSearch> {
     _getInfoFromCocktail = widget.inputFromCocktail;
     _inputController.text = _getInfoFromCocktail;
     super.initState();
-    /*_getCocktailFromResearch =
-        ViewModelSearch.searchForCocktail(_getInfoFromCocktail);
-    _getCocktailFromResearch.then((value) =>
-        print("get value ${value.dataClassCocktail[0].nameCocktail}"));*/
   }
 
   @override
