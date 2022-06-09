@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/search/views/items/filter_button_search_not_selected.dart';
-import 'package:saucey/search/views/items/filter_button_search_selected.dart';
 import 'package:saucey/utils/MyColors.dart';
 import 'package:saucey/utils/data_model_cocktail.dart';
 
@@ -20,7 +18,6 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   late bool isLoading;
   late Future<DataClassTableCocktail> _firstResult;
-  int _selectedItem = 0;
 
   @override
   void initState() {
@@ -56,7 +53,6 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    const _listOfFilterName = ["By name", "By ingredient"];
     return Scaffold(
       body: Column(
         children: [
@@ -104,35 +100,6 @@ class _SearchState extends State<Search> {
                   _firstResult = value;
                 });
               },
-            ),
-          ),
-          /** Filter buttons **/
-          Padding(
-            padding: const EdgeInsets.only(bottom: 15.0),
-            child: SizedBox(
-              height: 40,
-              child: Center(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedItem = index;
-                        });
-                      },
-                      child: Center(
-                          child: _selectedItem == index
-                              ? FilterButtonSearchSelected(
-                                  buttonName: _listOfFilterName[index])
-                              : FilterButtonSearchNotSelected(
-                                  buttonName: _listOfFilterName[index])),
-                    );
-                  },
-                  itemCount: _listOfFilterName.length,
-                ),
-              ),
             ),
           ),
           /** Item Card for future list **/
