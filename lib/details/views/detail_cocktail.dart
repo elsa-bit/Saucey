@@ -29,23 +29,29 @@ class _DetailState extends State<Detail> {
     var ing2 = snapshot.data?.dataClassDetail[0].ingredient2;
     var ing3 = snapshot.data?.dataClassDetail[0].ingredient3;
     var ing4 = snapshot.data?.dataClassDetail[0].ingredient4;
+    var ing5 = snapshot.data?.dataClassDetail[0].ingredient5;
+    var ing6 = snapshot.data?.dataClassDetail[0].ingredient6;
+    var ing7 = snapshot.data?.dataClassDetail[0].ingredient7;
     var inst = snapshot.data?.dataClassDetail[0].instruction;
     var alc = snapshot.data?.dataClassDetail[0].alcoholic;
 
+
     //Rassembler tous les ingredients en une liste
     List<String> addIngredient = [];
-    if(ing1 != null){
-      addIngredient.add(ing1);
+    void testIngredient(String? ing){
+      if(ing != null){
+        addIngredient.add(ing);
+      }
     }
-    if(ing2 != null){
-      addIngredient.add(ing2);
-    }
-    if(ing3 != null){
-      addIngredient.add(ing3);
-    }
-    if(ing4 != null){
-      addIngredient.add(ing4);
-    }
+
+    testIngredient(ing1);
+    testIngredient(ing2);
+    testIngredient(ing3);
+    testIngredient(ing4);
+    testIngredient(ing5);
+    testIngredient(ing6);
+    testIngredient(ing7);
+
 
 
     //Convertir la liste en String
@@ -211,19 +217,19 @@ class _DetailState extends State<Detail> {
                                 size: Size(20, 20),
                                 painter: MyPainter2(),
                               ),
-                              /**
-                               * REVOIR LE TEXT POUR PAS QUI DEPASSE !!
-                               */
                               Container(
                                 height: 60,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      inst!,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 11,
+                                    SizedBox(
+                                      width: 380,
+                                      child: Text(
+                                        inst!,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 11,
+                                        ),
                                       ),
                                     ),
                                   ],

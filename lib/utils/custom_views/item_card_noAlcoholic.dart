@@ -117,7 +117,7 @@ class ItemCardNoAlcoholic extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "15€",
+                        "15,30€",
                         style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       ),

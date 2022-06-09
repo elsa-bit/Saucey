@@ -21,6 +21,9 @@ class DataClassDetail {
   final String? ingredient2;
   final String? ingredient3;
   final String? ingredient4;
+  final String? ingredient5;
+  final String? ingredient6;
+  final String? ingredient7;
   final String urlImage;
   final String instruction;
 
@@ -32,6 +35,9 @@ class DataClassDetail {
       required this.ingredient2,
       required this.ingredient3,
       required this.ingredient4,
+        required this.ingredient5,
+        required this.ingredient6,
+        required this.ingredient7,
       required this.urlImage,
       required this.instruction});
 
@@ -44,10 +50,9 @@ class DataClassDetail {
       ingredient2: json['strIngredient2'],
       ingredient3: json['strIngredient3'],
       ingredient4: json['strIngredient4'],
-      /*
-      ingredient: json['strIngredient1']['strIngredient2']['strIngredient3']
-          ['strIngredient1'],
-                 */
+      ingredient5: json['strIngredient5'],
+      ingredient6: json['strIngredient6'],
+      ingredient7: json['strIngredient7'],
       urlImage: json['strDrinkThumb'],
       instruction: json['strInstructions'],
     );
