@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:saucey/utils/MyColors.dart';
 
 class FilterButtonSearchSelected extends StatelessWidget {
-  final bool isSelected;
   final String buttonName;
 
   const FilterButtonSearchSelected({
     Key? key,
-    required this.isSelected,
     required this.buttonName,
   }) : super(key: key);
 

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/utils/MyColors.dart';
 
-class FilterButtonSearchSelected extends StatelessWidget {
-  final bool isSelected;
+class FilterButtonSearchNotSelected extends StatelessWidget {
   final String buttonName;
 
-  const FilterButtonSearchSelected({
+  const FilterButtonSearchNotSelected({
     Key? key,
-    required this.isSelected,
     required this.buttonName,
   }) : super(key: key);
 
@@ -16,16 +14,17 @@ class FilterButtonSearchSelected extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0),
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-      decoration: const BoxDecoration(
-        color: MyColors.bordeaux,
-        borderRadius: BorderRadius.all(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
+        border: Border.all(color: MyColors.bordeaux),
       ),
       child: Center(
         child: Text(
           buttonName,
-          style: const TextStyle(fontSize: 12, color: Colors.white),
+          style: const TextStyle(fontSize: 12, color: MyColors.bordeaux),
         ),
       ),
     );
