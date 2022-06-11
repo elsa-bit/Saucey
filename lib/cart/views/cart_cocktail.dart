@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/cart/data/cocktail_cart_repository.dart';
 import 'package:saucey/cart/items/item_cart_element.dart';
+import 'package:saucey/cart/model/cocktail_model.dart';
 
 import '../../utils/MyColors.dart';
 
@@ -8,10 +10,39 @@ class Cart extends StatefulWidget {
 
   @override
   State<Cart> createState() => _CartState();
-
 }
 
 class _CartState extends State<Cart> {
+  late Future<List<CartCocktail>> futureListCardCocktail;
+
+  getListOfCocktailsCard(AsyncSnapshot<List<CartCocktail>> snapshot) {
+    if (snapshot.data != null) {
+      return ListView.builder(
+        itemCount: snapshot.data?.length,
+        itemBuilder: (context, index) {
+          return Container(
+            width: double.infinity,
+            height: 100,
+            child: ItemCartElement(
+                photo: snapshot.data![index].cocktailUrlImage,
+                name: snapshot.data![index].cocktailName,
+                category: snapshot.data![index].cocktailCategory,
+                price: snapshot.data![index].cocktailPrice.toString()),
+          );
+        },
+      );
+    } else {
+      return Text("No cocktail chosen yet !");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    futureListCardCocktail =
+        CocktailCartRepository.getAllCocktailsIntoDatabase();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,23 +85,20 @@ class _CartState extends State<Cart> {
          * List of items
          */
         SizedBox(
-          width: double.infinity,
-          height: 380,
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Container(
-                width: double.infinity,
-                height: 100,
-                child: ItemCartElement(
-                    photo: 'assets/images/red_cocktail.png',
-                    name: 'Planter\'s Punch',
-                    category: 'Tropical',
-                    price: '15€'),
-              );
-            },
-          ),
-        ),
+            width: double.infinity,
+            height: 380,
+            child: FutureBuilder<List<CartCocktail>>(
+              future: futureListCardCocktail,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print('Error : ${snapshot.error}');
+                  return const Text("An error occurs, try later.");
+                } else if (snapshot.hasData) {
+                  return getListOfCocktailsCard(snapshot);
+                }
+                return const CircularProgressIndicator();
+              },
+            )),
         /**
          * Payment info
          */

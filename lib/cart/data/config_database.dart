@@ -10,7 +10,3 @@ part 'config_database.g.dart';
 abstract class AppDatabase extends FloorDatabase {
   CocktailCartDao get cartCocktailDao;
 }
-
-
-
-
