@@ -1,17 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:saucey/cart/data/cocktail_cart_repository.dart';
+import 'package:saucey/cart/model/cocktail_model.dart';
 
 class ItemCardCocktail extends StatelessWidget {
+  final String? cocktailId;
   final String? cocktailTitle;
   final String? urlImage;
-  final String? id;
 
   const ItemCardCocktail({
     Key? key,
+    required this.cocktailId,
     required this.cocktailTitle,
     required this.urlImage,
-    required this.id,
   }) : super(key: key);
+
+  Future<bool> _isAddedCocktailToCart(CartCocktail cocktailToAdd) async {
+    bool _result = false;
+    int _sizeOfFirstList = 0;
+    CocktailCartRepository.getAllCocktailsIntoDatabase().then(
+      (value) {
+        _sizeOfFirstList = value.length;
+      },
+    );
+    CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
+    CocktailCartRepository.getAllCocktailsIntoDatabase().then(
+      (value) {
+        if (_sizeOfFirstList != value.length) {
+          _result = true;
+        } else {
+          _result = false;
+        }
+      },
+    );
+    return _result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +147,26 @@ class ItemCardCocktail extends StatelessWidget {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (cocktailId != null && cocktailTitle != null) {
+                          var setCocktailCart = CartCocktail(
+                              cocktailId!, cocktailTitle!, "N/A", urlImage, 15);
+                          var successToAdd =
+                              _isAddedCocktailToCart(setCocktailCart);
+                          successToAdd.then((value) => {
+                                if (value)
+                                  {
+                                    //Snackbar success to add
+                                  }
+                                else
+                                  {
+                                    //Snackbar a problem occurs
+                                  }
+                              });
+                        } else {
+                          //Problem on information of the cocktail
+                        }
+                      },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                         minimumSize: Size.zero,

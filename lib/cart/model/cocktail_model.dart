@@ -2,11 +2,11 @@ import 'package:floor/floor.dart';
 
 @entity
 class CartCocktail {
-  @PrimaryKey(autoGenerate: true)
-  final int? id;
+  @PrimaryKey(autoGenerate: false)
+  final String id;
   final String cocktailName;
   final String cocktailCategory;
-  final String cocktailUrlImage;
+  final String? cocktailUrlImage;
   final int cocktailPrice;
 
   CartCocktail(this.id, this.cocktailName, this.cocktailCategory,

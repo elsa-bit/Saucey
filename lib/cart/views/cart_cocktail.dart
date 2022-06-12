@@ -96,7 +96,12 @@ class _CartState extends State<Cart> {
                 } else if (snapshot.hasData) {
                   return getListOfCocktailsCard(snapshot);
                 }
-                return const CircularProgressIndicator();
+                return Container(
+                  width: 50,
+                  height: 50,
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator(),
+                );
               },
             )),
         /**

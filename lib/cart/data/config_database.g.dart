@@ -123,7 +123,7 @@ class _$CocktailCartDao extends CocktailCartDao {
   Future<List<CartCocktail>> findAllCocktails() async {
     return _queryAdapter.queryList('SELECT * FROM CartCocktail',
         mapper: (Map<String, Object?> row) => CartCocktail(
-            row['id'] as int?,
+            row['id'] as String,
             row['cocktailName'] as String,
             row['cocktailCategory'] as String,
             row['cocktailUrlImage'] as String,

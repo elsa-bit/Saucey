@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ItemCartElement extends StatelessWidget {
-  final String photo;
+  final String? photo;
   final String name;
   final String category;
   final String price;
@@ -39,9 +39,10 @@ class ItemCartElement extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
+                      //Rewrite the logic of the photo (can't be forced)
                       Container(
                         padding: EdgeInsets.only(left: 20),
-                        child: Image.asset(photo),
+                        child: Image.asset(photo!),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 30, top: 20),
