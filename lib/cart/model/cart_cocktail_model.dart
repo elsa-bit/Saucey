@@ -8,8 +8,8 @@ class CartCocktail {
   final String cocktailCategory;
   final String? cocktailUrlImage;
   final int cocktailPrice;
-  //final int quantity;
+  final int quantity;
 
   CartCocktail(this.id, this.cocktailName, this.cocktailCategory,
-      this.cocktailUrlImage, this.cocktailPrice);
+      this.cocktailUrlImage, this.cocktailPrice, this.quantity);
 }

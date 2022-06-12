@@ -82,7 +82,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `CartCocktail` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `cocktailName` TEXT NOT NULL, `cocktailCategory` TEXT NOT NULL, `cocktailUrlImage` TEXT NOT NULL, `cocktailPrice` INTEGER NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `CartCocktail` (`id` TEXT NOT NULL, `cocktailName` TEXT NOT NULL, `cocktailCategory` TEXT NOT NULL, `cocktailUrlImage` TEXT, `cocktailPrice` INTEGER NOT NULL, `quantity` INTEGER NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -108,7 +108,8 @@ class _$CocktailCartDao extends CocktailCartDao {
                   'cocktailName': item.cocktailName,
                   'cocktailCategory': item.cocktailCategory,
                   'cocktailUrlImage': item.cocktailUrlImage,
-                  'cocktailPrice': item.cocktailPrice
+                  'cocktailPrice': item.cocktailPrice,
+                  'quantity': item.quantity
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -126,13 +127,14 @@ class _$CocktailCartDao extends CocktailCartDao {
             row['id'] as String,
             row['cocktailName'] as String,
             row['cocktailCategory'] as String,
-            row['cocktailUrlImage'] as String,
-            row['cocktailPrice'] as int));
+            row['cocktailUrlImage'] as String?,
+            row['cocktailPrice'] as int,
+            row['quantity'] as int));
   }
 
   @override
   Future<void> insertCocktail(CartCocktail cartCocktail) async {
     await _cartCocktailInsertionAdapter.insert(
-        cartCocktail, OnConflictStrategy.abort);
+        cartCocktail, OnConflictStrategy.replace);
   }
 }

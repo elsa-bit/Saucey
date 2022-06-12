@@ -15,34 +15,54 @@ class ItemCardCocktail extends StatelessWidget {
     required this.urlImage,
   }) : super(key: key);
 
-  Future<bool> _isAddedCocktailToCart(CartCocktail cocktailToAdd) async {
+  Future<bool> _isAddedCocktailToCart() async {
     bool _result = false;
     int _sizeOfFirstList = 0;
-    //bool quantityHasChanged = false;
-    CocktailCartRepository.getAllCocktailsIntoDatabase().then(
-      (value) {
-        _sizeOfFirstList = value.length;
-        /* newQuantity = 0;
-        if value.id == cocktailToAdd.id => newQuantity = value.quantity += 1
-        * cocktailToAdd.quantity = newQuantity
-        addCocktailIntoDatabase
-        quantityHasChanged = true;
-        else
-        cocktailToAdd.quantity = 1
-        addCocktailIntoDatabase*/
-      },
-    );
-    //CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
-    CocktailCartRepository.getAllCocktailsIntoDatabase().then(
-      (value) {
-        //if(_sizeOfFirstList < value.length || quantityHasChanged)
-        if (_sizeOfFirstList < value.length) {
-          _result = true;
+    bool quantityHasChanged = false;
+    var listOfCocktails =
+        await CocktailCartRepository.getAllCocktailsIntoDatabase();
+    _sizeOfFirstList = listOfCocktails.length;
+    if (listOfCocktails.isEmpty) {
+      var quantity = 1;
+      quantityHasChanged = true;
+      var setCocktailCart = CartCocktail(
+          cocktailId!, cocktailTitle!, "N/A", urlImage, 15, quantity);
+      CocktailCartRepository.addCocktailIntoDatabase(setCocktailCart);
+    }
+
+    var newListOfCocktails =
+        await CocktailCartRepository.getAllCocktailsIntoDatabase();
+    if (_sizeOfFirstList < newListOfCocktails.length) {
+      _result = true;
+    } else {
+      _result = false;
+    }
+
+    /*CocktailCartRepository.getAllCocktailsIntoDatabase().then(
+      (listOfCartCocktails) {
+        _sizeOfFirstList = listOfCartCocktails.length;
+        if (listOfCartCocktails.isEmpty) {
+          cocktailToAdd.quantity = 1;
+          quantityHasChanged = true;
+          CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
         } else {
-          _result = false;
+          for (var cocktail in listOfCartCocktails) {
+            if (cocktail.id == cocktailToAdd.id) {
+              int newQuantity = 0;
+              newQuantity = cocktail.quantity;
+              newQuantity += 1;
+              cocktailToAdd.quantity = newQuantity;
+              quantityHasChanged = true;
+              CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
+            } else {
+              cocktailToAdd.quantity = 1;
+              quantityHasChanged = false;
+              CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
+            }
+          }
         }
       },
-    );
+    );*/
     return _result;
   }
 
@@ -159,22 +179,34 @@ class ItemCardCocktail extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         if (cocktailId != null && cocktailTitle != null) {
-                          var setCocktailCart = CartCocktail(
-                              cocktailId!, cocktailTitle!, "N/A", urlImage, 15);
-                          var successToAdd =
-                              _isAddedCocktailToCart(setCocktailCart);
-                          successToAdd.then((value) => {
-                                if (value)
+                          var successToAdd = _isAddedCocktailToCart();
+                          successToAdd.then((success) => {
+                                if (success)
                                   {
-                                    //Snackbar success to add
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text("Cocktail added to the cart"),
+                                      ),
+                                    ),
                                   }
                                 else
                                   {
-                                    //Snackbar a problem occurs
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text("The cocktail can't be added"),
+                                      ),
+                                    ),
                                   }
                               });
                         } else {
-                          //Problem on information of the cocktail
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text("A problem occurs, please try later "),
+                            ),
+                          );
                         }
                       },
                       style: TextButton.styleFrom(
