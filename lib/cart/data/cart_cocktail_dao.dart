@@ -1,5 +1,5 @@
 import 'package:floor/floor.dart';
-import 'package:saucey/cart/model/cocktail_model.dart';
+import 'package:saucey/cart/model/cart_cocktail_model.dart';
 
 @dao
 abstract class CocktailCartDao {

@@ -1,4 +1,4 @@
-import 'package:saucey/cart/model/cocktail_model.dart';
+import 'package:saucey/cart/model/cart_cocktail_model.dart';
 
 import 'config_database.dart';
 

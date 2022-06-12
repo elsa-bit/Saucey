@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saucey/cart/data/cocktail_cart_repository.dart';
-import 'package:saucey/cart/model/cocktail_model.dart';
+import 'package:saucey/cart/model/cart_cocktail_model.dart';
 
 class ItemCardCocktail extends StatelessWidget {
   final String? cocktailId;
@@ -18,15 +18,25 @@ class ItemCardCocktail extends StatelessWidget {
   Future<bool> _isAddedCocktailToCart(CartCocktail cocktailToAdd) async {
     bool _result = false;
     int _sizeOfFirstList = 0;
+    //bool quantityHasChanged = false;
     CocktailCartRepository.getAllCocktailsIntoDatabase().then(
       (value) {
         _sizeOfFirstList = value.length;
+        /* newQuantity = 0;
+        if value.id == cocktailToAdd.id => newQuantity = value.quantity += 1
+        * cocktailToAdd.quantity = newQuantity
+        addCocktailIntoDatabase
+        quantityHasChanged = true;
+        else
+        cocktailToAdd.quantity = 1
+        addCocktailIntoDatabase*/
       },
     );
-    CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
+    //CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
     CocktailCartRepository.getAllCocktailsIntoDatabase().then(
       (value) {
-        if (_sizeOfFirstList != value.length) {
+        //if(_sizeOfFirstList < value.length || quantityHasChanged)
+        if (_sizeOfFirstList < value.length) {
           _result = true;
         } else {
           _result = false;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/cart/data/cocktail_cart_repository.dart';
 import 'package:saucey/cart/items/item_cart_element.dart';
-import 'package:saucey/cart/model/cocktail_model.dart';
+import 'package:saucey/cart/model/cart_cocktail_model.dart';
 
 import '../../utils/MyColors.dart';
 
@@ -15,7 +15,7 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   late Future<List<CartCocktail>> futureListCardCocktail;
 
-  getListOfCocktailsCard(AsyncSnapshot<List<CartCocktail>> snapshot) {
+  _getListOfCocktailsCard(AsyncSnapshot<List<CartCocktail>> snapshot) {
     if (snapshot.data != null) {
       return ListView.builder(
         itemCount: snapshot.data?.length,
@@ -94,7 +94,7 @@ class _CartState extends State<Cart> {
                   print('Error : ${snapshot.error}');
                   return const Text("An error occurs, try later.");
                 } else if (snapshot.hasData) {
-                  return getListOfCocktailsCard(snapshot);
+                  return _getListOfCocktailsCard(snapshot);
                 }
                 return Container(
                   width: 50,
