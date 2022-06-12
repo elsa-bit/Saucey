@@ -28,6 +28,8 @@ class ItemCardCocktail extends StatelessWidget {
       var setCocktailCart = CartCocktail(
           cocktailId!, cocktailTitle!, "N/A", urlImage, 15, quantity);
       CocktailCartRepository.addCocktailIntoDatabase(setCocktailCart);
+    } else {
+
     }
 
     var newListOfCocktails =
