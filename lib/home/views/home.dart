@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/cart/views/cart_cocktail.dart';
+import 'package:saucey/cart/views/cart_view.dart';
 import 'package:saucey/category/views/category.dart';
 import 'package:saucey/cocktail/cocktail.dart';
 import 'package:saucey/home/views/bottom_nav_bar.dart';

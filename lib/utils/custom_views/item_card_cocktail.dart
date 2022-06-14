@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:saucey/cart/view_model/cart_view_model.dart';
 
 class ItemCardCocktail extends StatelessWidget {
+  final String? cocktailId;
   final String? cocktailTitle;
   final String? urlImage;
-  final String? id;
 
   const ItemCardCocktail({
     Key? key,
+    required this.cocktailId,
     required this.cocktailTitle,
     required this.urlImage,
-    required this.id,
   }) : super(key: key);
 
   @override
@@ -124,7 +125,40 @@ class ItemCardCocktail extends StatelessWidget {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (cocktailId != null && cocktailTitle != null) {
+                          var successToAdd =
+                              CartViewModel.isAddedCocktailToCart(
+                                  cocktailId!, cocktailTitle!, urlImage);
+                          successToAdd.then((success) => {
+                                if (success)
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text("Cocktail added to the cart"),
+                                      ),
+                                    ),
+                                  }
+                                else
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text("The cocktail can't be added"),
+                                      ),
+                                    ),
+                                  }
+                              });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text("A problem occurs, please try later "),
+                            ),
+                          );
+                        }
+                      },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                         minimumSize: Size.zero,
