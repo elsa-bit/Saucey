@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:saucey/utils/MyColors.dart';
 
+import '../../cocktail/data_model_cocktail.dart';
 import '../../utils/custom_views/item_card_cocktail.dart';
+import '../viewmodel_category.dart';
 
 class SpecialCategory extends StatefulWidget {
   String title;
@@ -13,6 +15,37 @@ class SpecialCategory extends StatefulWidget {
 }
 
 class _SpecialCategoryState extends State<SpecialCategory> {
+  late Future<DataClassTableCocktail> futureCocktail;
+  late Future<DataClassTableCocktail> futureNoAlcoholic;
+
+  gridViewOfCocktails(AsyncSnapshot<DataClassTableCocktail> snapshot) {
+    if (snapshot.data != null) {
+      return GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: MediaQuery.of(context).size.width /
+                (MediaQuery.of(context).size.height / 1.65)),
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return ItemCardCocktail(
+            cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
+            urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
+          );
+        },
+      );
+    } else {
+      return const Text("No cocktails for this category available.");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    futureCocktail = ViewModelCocktail.fetchSpecialCategory(widget.title);
+    futureNoAlcoholic = ViewModelCocktail.fetchNoAlcoholicCocktail();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,19 +86,34 @@ class _SpecialCategoryState extends State<SpecialCategory> {
             ),
           ),
           /** Item Card for future list **/
-          Expanded(
-            child: GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: MediaQuery.of(context).size.width /
-                      (MediaQuery.of(context).size.height / 1.28)),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return ItemCardCocktail();
+          widget.title == "Non Alcoholic" ?
+          Flexible(
+            child: FutureBuilder<DataClassTableCocktail>(
+              future: futureNoAlcoholic,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print('Error : ${snapshot.error}');
+                  return const Text("An error occurs, try later.");
+                } else if (snapshot.hasData) {
+                  return gridViewOfCocktails(snapshot);
+                }
+                return const CircularProgressIndicator();
               },
             ),
-          ),
+          ):Flexible(
+            child: FutureBuilder<DataClassTableCocktail>(
+              future: futureCocktail,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print('Error : ${snapshot.error}');
+                  return const Text("An error occurs, try later.");
+                } else if (snapshot.hasData) {
+                  return gridViewOfCocktails(snapshot);
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+          )
         ],
       ),
     );

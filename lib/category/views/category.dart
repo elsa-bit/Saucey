@@ -18,33 +18,33 @@ class Category extends StatelessWidget {
         children: [
           Center(
             child: ItemCategoryCard(
-                urlImage: 'assets/images/category_sparkling.jpeg',
-                textCard: 'Sparkling'),
+                urlImage: 'assets/images/category_beer.jpg',
+                textCard: 'Beer'),
           ),
           Center(
             child: ItemCategoryCard(
                 urlImage: 'assets/images/category_party.jpg',
-                textCard: 'Party'),
+                textCard: 'Punch / Party Drink'),
           ),
           Center(
             child: ItemCategoryCard(
                 urlImage: 'assets/images/category_tropical.jpeg',
-                textCard: 'Tropical'),
+                textCard: 'Cocktail'),
           ),
           Center(
             child: ItemCategoryCard(
                 urlImage: 'assets/images/category_famous.jpeg',
-                textCard: 'Famous'),
+                textCard: 'Ordinary Drink'),
           ),
           Center(
             child: ItemCategoryCard(
                 urlImage: 'assets/images/category_no_alcoholic.jpeg',
-                textCard: 'No-alcoholic'),
+                textCard: 'Non Alcoholic'),
           ),
           Center(
             child: ItemCategoryCard(
                 urlImage: 'assets/images/category_stylish.jpeg',
-                textCard: 'Stylish'),
+                textCard: 'Homemade Liqueur'),
           ),
         ],
       ),
