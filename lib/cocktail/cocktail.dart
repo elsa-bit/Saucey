@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/cocktail/search_bar_cocktail.dart';
 import 'package:saucey/cocktail/viewmodel_cocktail.dart';
 
-import '../../utils/custom_views/search_bar.dart';
 import '../utils/custom_views/item_card_cocktail.dart';
-import 'data_model_cocktail.dart';
+import '../utils/custom_views/no_cocktail_found.dart';
+import '../utils/data_model_cocktail.dart';
 
 class Cocktail extends StatefulWidget {
   const Cocktail({Key? key}) : super(key: key);
@@ -61,7 +62,7 @@ class _CocktailState extends State<Cocktail> {
         /** Search Bar **/
         const Padding(
           padding: EdgeInsets.only(bottom: 25, right: 15, left: 15),
-          child: SearchBar(),
+          child: SearchBarFromCocktail(),
         ),
         /** Image Banner **/
         Padding(
@@ -102,7 +103,13 @@ class _CocktailState extends State<Cocktail> {
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 print('Error : ${snapshot.error}');
-                return const Text("An error occurs, try later.");
+                return const SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 60.0),
+                    child: NoCocktailFound(),
+                  ),
+                );
               } else if (snapshot.hasData) {
                 return gridViewOfCocktails(snapshot);
               }

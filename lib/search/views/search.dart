@@ -1,18 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/search/views/items/filter_button_search.dart';
 import 'package:saucey/utils/MyColors.dart';
+import 'package:saucey/utils/custom_views/no_cocktail_found.dart';
+import 'package:saucey/utils/data_model_cocktail.dart';
 
-import '../../utils/custom_views/search_bar.dart';
+import '../../utils/custom_views/item_card_cocktail.dart';
+import '../viewmodel_search.dart';
+import 'items/search_bar_search.dart';
 
 class Search extends StatefulWidget {
-  const Search({Key? key}) : super(key: key);
+  final String searchInfo;
+
+  const Search({Key? key, required this.searchInfo}) : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
 }
 
 class _SearchState extends State<Search> {
-  final List<bool> _selectedStatus = [false, false, false];
+  late bool isLoading;
+  late Future<DataClassTableCocktail> _firstResult;
+
+  @override
+  void initState() {
+    setState(() {
+      isLoading = true;
+      _firstResult = ViewModelSearch.searchForCocktail(widget.searchInfo);
+    });
+    super.initState();
+  }
+
+  gridViewOfCocktails(AsyncSnapshot<DataClassTableCocktail> snapshot) {
+    if (snapshot.data != null) {
+      return GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: MediaQuery.of(context).size.width /
+                (MediaQuery.of(context).size.height / 1.65)),
+        itemCount: snapshot.data!.dataClassCocktail.length <= 10
+            ? snapshot.data!.dataClassCocktail.length
+            : 10,
+        itemBuilder: (context, index) {
+          return ItemCardCocktail(
+            cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
+            urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
+          );
+        },
+      );
+    } else {
+      return const Text("No cocktail exists.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +65,16 @@ class _SearchState extends State<Search> {
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back_ios_rounded,
                       color: MyColors.bordeaux,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 10,
                   child: Center(
                     child: Text(
@@ -52,55 +92,39 @@ class _SearchState extends State<Search> {
           ),
           /** SearchBar **/
           Padding(
-            padding: EdgeInsets.only(bottom: 15, right: 15, left: 15, top: 25),
-            child: SearchBar(),
-          ),
-          /** Filter buttons **/
-          Row(
-            children: [
-              FilterButtonSearch(
-                setSelectedStatus: (bool value) {
-                  setState(() {
-                    _selectedStatus[0] = value;
-                  });
-                },
-                isSelected: _selectedStatus[0],
-                buttonName: "No-alcoholic",
-              ),
-              FilterButtonSearch(
-                setSelectedStatus: (bool value) {
-                  setState(() {
-                    _selectedStatus[1] = value;
-                  });
-                },
-                isSelected: _selectedStatus[1],
-                buttonName: "By name",
-              ),
-              FilterButtonSearch(
-                setSelectedStatus: (bool value) {
-                  setState(() {
-                    _selectedStatus[2] = value;
-                  });
-                },
-                isSelected: _selectedStatus[2],
-                buttonName: "By ingredient",
-              )
-            ],
-          ),
-          /** Item Card for future list **/
-          /*Expanded(
-            child: GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: MediaQuery.of(context).size.width /
-                      (MediaQuery.of(context).size.height / 1.28)),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return ItemCardCocktail();
+            padding:
+                const EdgeInsets.only(bottom: 15, right: 15, left: 15, top: 25),
+            child: SearchBarFromSearch(
+              inputFromCocktail: widget.searchInfo,
+              retrieveCocktailsData: (Future<DataClassTableCocktail> value) {
+                setState(() {
+                  _firstResult = value;
+                });
               },
             ),
-          ),*/
+          ),
+          /** Item Card for future list **/
+          /** Call api to parse information into cards of cocktails **/
+          Flexible(
+            child: FutureBuilder<DataClassTableCocktail>(
+              future: _firstResult,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print('Error : ${snapshot.error}');
+                  return const SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 60.0),
+                      child: NoCocktailFound(),
+                    ),
+                  );
+                } else if (snapshot.hasData) {
+                  return gridViewOfCocktails(snapshot);
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+          ),
         ],
       ),
     );

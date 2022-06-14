@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/search/views/search.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+class SearchBarFromCocktail extends StatelessWidget {
+  const SearchBarFromCocktail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var _inputController = TextEditingController();
+    String? setValue;
     return Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Expanded(
+          Expanded(
             flex: 6,
             child: TextField(
-              decoration: InputDecoration(
+              controller: _inputController,
+              decoration: const InputDecoration(
                   isDense: true,
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 15, vertical: 13),
@@ -32,7 +36,24 @@ class SearchBar extends StatelessWidget {
           ),
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                setValue = _inputController.text;
+                if (_inputController.text.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Search(searchInfo: setValue!),
+                    ),
+                  );
+                  _inputController.clear();
+                  FocusScope.of(context).unfocus();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Filled the search"),
+                    duration: Duration(seconds: 1),
+                  ));
+                }
+              },
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
