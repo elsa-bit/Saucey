@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saucey/utils/data_model_cocktail.dart';
+import 'package:saucey/cocktail/data_model_cocktail.dart';
 
 import '../../viewmodel_search.dart';
 import 'filter_button_search_not_selected.dart';

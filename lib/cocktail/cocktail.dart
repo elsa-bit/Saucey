@@ -4,7 +4,7 @@ import 'package:saucey/cocktail/viewmodel_cocktail.dart';
 
 import '../utils/custom_views/item_card_cocktail.dart';
 import '../utils/custom_views/no_cocktail_found.dart';
-import '../utils/data_model_cocktail.dart';
+import 'data_model_cocktail.dart';
 
 class Cocktail extends StatefulWidget {
   const Cocktail({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/cocktail/data_model_cocktail.dart';
 import 'package:saucey/utils/MyColors.dart';
 import 'package:saucey/utils/custom_views/no_cocktail_found.dart';
-import 'package:saucey/utils/data_model_cocktail.dart';
 
 import '../../utils/custom_views/item_card_cocktail.dart';
 import '../viewmodel_search.dart';
@@ -42,9 +42,10 @@ class _SearchState extends State<Search> {
             : 10,
         itemBuilder: (context, index) {
           return ItemCardCocktail(
-            cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
-            urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
-          );
+              cocktailTitle:
+                  snapshot.data?.dataClassCocktail[index].nameCocktail,
+              urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
+              id: snapshot.data?.dataClassCocktail[index].idCocktail);
         },
       );
     } else {
