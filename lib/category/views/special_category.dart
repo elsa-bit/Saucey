@@ -30,9 +30,9 @@ class _SpecialCategoryState extends State<SpecialCategory> {
         itemCount: 10,
         itemBuilder: (context, index) {
           return ItemCardCocktail(
+            cocktailId: snapshot.data?.dataClassCocktail[index].idCocktail,
             cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
             urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
-            id : snapshot.data?.dataClassCocktail[index].idCocktail
           );
         },
       );

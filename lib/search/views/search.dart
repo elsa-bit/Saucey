@@ -42,10 +42,10 @@ class _SearchState extends State<Search> {
             : 10,
         itemBuilder: (context, index) {
           return ItemCardCocktail(
-              cocktailTitle:
-                  snapshot.data?.dataClassCocktail[index].nameCocktail,
-              urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
-              id: snapshot.data?.dataClassCocktail[index].idCocktail);
+            cocktailId: snapshot.data?.dataClassCocktail[index].idCocktail,
+            cocktailTitle: snapshot.data?.dataClassCocktail[index].nameCocktail,
+            urlImage: snapshot.data?.dataClassCocktail[index].urlImage,
+          );
         },
       );
     } else {

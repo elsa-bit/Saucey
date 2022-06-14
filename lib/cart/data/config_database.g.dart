@@ -149,7 +149,7 @@ class _$CocktailCartDao extends CocktailCartDao {
   @override
   Future<void> insertCocktail(CartCocktail cartCocktail) async {
     await _cartCocktailInsertionAdapter.insert(
-        cartCocktail, OnConflictStrategy.replace);
+        cartCocktail, OnConflictStrategy.abort);
   }
 
   @override
