@@ -5,96 +5,84 @@ class ItemCartElement extends StatelessWidget {
   final String name;
   final String category;
   final String price;
+  final int quantity;
 
   const ItemCartElement(
       {Key? key,
       required this.photo,
       required this.name,
       required this.category,
-      required this.price})
+      required this.price,
+      required this.quantity})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Stack(
-              children: [
-                Container(
-                  width: 350,
-                  height: 77,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 4,
-                        offset: Offset(4, 8), // Shadow position
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      //Rewrite the logic of the photo (can't be forced)
-                      Container(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Image.asset(photo!),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30, top: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              name,
-                              style: TextStyle(
-                                  fontFamily: 'AlegreyaSans',
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            ),
-                            Text(
-                              category,
-                              style: TextStyle(
-                                  fontFamily: 'AlegreyaSans',
-                                  color: Colors.grey,
-                                  fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 50),
-                        child: Row(
-                          children: [
-                            Text(
-                              price,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 50),
-                              child: Icon(
-                                Icons.remove_circle,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 4,
+            offset: Offset(4, 8), // Shadow position
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            height: 50,
+            padding: EdgeInsets.only(left: 15),
+            child: Image.network(photo!),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 150,
+                child: Text(
+                  name,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontFamily: 'AlegreyaSans',
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                  maxLines: 1,
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              Text(
+                category,
+                style: TextStyle(
+                    fontFamily: 'AlegreyaSans',
+                    color: Colors.grey,
+                    fontSize: 12),
+              ),
+            ],
+          ),
+          Text(
+            price + "€",
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Text(
+            quantity.toString(),
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          Icon(
+            Icons.remove_circle,
+            color: Colors.grey,
+          ),
+        ],
       ),
     );
   }

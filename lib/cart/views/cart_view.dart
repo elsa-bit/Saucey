@@ -24,10 +24,12 @@ class _CartState extends State<Cart> {
             width: double.infinity,
             height: 100,
             child: ItemCartElement(
-                photo: snapshot.data![index].cocktailUrlImage,
-                name: snapshot.data![index].cocktailName,
-                category: snapshot.data![index].cocktailCategory,
-                price: snapshot.data![index].cocktailPrice.toString()),
+              photo: snapshot.data![index].cocktailUrlImage,
+              name: snapshot.data![index].cocktailName,
+              category: snapshot.data![index].cocktailCategory,
+              price: snapshot.data![index].cocktailPrice.toString(),
+              quantity: snapshot.data![index].quantity,
+            ),
           );
         },
       );
