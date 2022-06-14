@@ -12,11 +12,11 @@ class CartViewModel {
         await CocktailCartRepository.getAllCocktailsIntoDatabase();
     _sizeOfFirstList = listOfCocktails.length;
     for (var cocktail in listOfCocktails) {
-      if (cocktail.id == cocktailId) {
+      if (cocktailId == cocktail.id) {
         _alreadyExist = true;
-        _newQuantity = cocktail.quantity + 1;
-      } else {
-        _alreadyExist = false;
+        int _setQuantity = cocktail.quantity + 1;
+        _newQuantity = _setQuantity;
+        break;
       }
     }
     if (listOfCocktails.isEmpty || !_alreadyExist) {
@@ -27,7 +27,7 @@ class CartViewModel {
     } else {
       var setCocktailCart = CartCocktail(
           cocktailId!, cocktailTitle!, "N/A", urlImage, 15, _newQuantity);
-      CocktailCartRepository.addCocktailIntoDatabase(setCocktailCart);
+      CocktailCartRepository.updateCocktailIntoDatabase(setCocktailCart);
     }
     var newListOfCocktails =
         await CocktailCartRepository.getAllCocktailsIntoDatabase();

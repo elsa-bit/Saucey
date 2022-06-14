@@ -8,4 +8,7 @@ abstract class CocktailCartDao {
 
   @insert
   Future<void> insertCocktail(CartCocktail cartCocktail);
+
+  @update
+  Future<void> updateCocktail(CartCocktail cartCocktail);
 }

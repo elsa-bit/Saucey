@@ -18,4 +18,11 @@ class CocktailCartRepository {
 
     return data;
   }
+
+  static void updateCocktailIntoDatabase(CartCocktail cocktailToUpdate) async {
+    final database =
+        await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+    final cocktailDao = database.cartCocktailDao;
+    await cocktailDao.updateCocktail(cocktailToUpdate);
+  }
 }

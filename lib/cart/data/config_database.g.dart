@@ -110,6 +110,18 @@ class _$CocktailCartDao extends CocktailCartDao {
                   'cocktailUrlImage': item.cocktailUrlImage,
                   'cocktailPrice': item.cocktailPrice,
                   'quantity': item.quantity
+                }),
+        _cartCocktailUpdateAdapter = UpdateAdapter(
+            database,
+            'CartCocktail',
+            ['id'],
+            (CartCocktail item) => <String, Object?>{
+                  'id': item.id,
+                  'cocktailName': item.cocktailName,
+                  'cocktailCategory': item.cocktailCategory,
+                  'cocktailUrlImage': item.cocktailUrlImage,
+                  'cocktailPrice': item.cocktailPrice,
+                  'quantity': item.quantity
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -119,6 +131,8 @@ class _$CocktailCartDao extends CocktailCartDao {
   final QueryAdapter _queryAdapter;
 
   final InsertionAdapter<CartCocktail> _cartCocktailInsertionAdapter;
+
+  final UpdateAdapter<CartCocktail> _cartCocktailUpdateAdapter;
 
   @override
   Future<List<CartCocktail>> findAllCocktails() async {
@@ -136,5 +150,11 @@ class _$CocktailCartDao extends CocktailCartDao {
   Future<void> insertCocktail(CartCocktail cartCocktail) async {
     await _cartCocktailInsertionAdapter.insert(
         cartCocktail, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> updateCocktail(CartCocktail cartCocktail) async {
+    await _cartCocktailUpdateAdapter.update(
+        cartCocktail, OnConflictStrategy.abort);
   }
 }
