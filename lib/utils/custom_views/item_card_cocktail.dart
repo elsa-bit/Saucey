@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:saucey/details/views/detail_cocktail.dart';
 
 class ItemCardCocktail extends StatelessWidget {
   final String? cocktailTitle;
   final String? urlImage;
   final String? id;
 
-  const ItemCardCocktail( {
+  const ItemCardCocktail({
     Key? key,
     required this.cocktailTitle,
     required this.urlImage,

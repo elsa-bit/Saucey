@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saucey/details/data_model_detail.dart';
 import 'package:saucey/details/viewmodel_detail.dart';
