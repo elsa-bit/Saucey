@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:saucey/cart/data/cocktail_cart_repository.dart';
-import 'package:saucey/cart/model/cart_cocktail_model.dart';
+import 'package:saucey/cart/view_model/cart_view_model.dart';
 
 class ItemCardCocktail extends StatelessWidget {
   final String? cocktailId;
@@ -14,59 +13,6 @@ class ItemCardCocktail extends StatelessWidget {
     required this.cocktailTitle,
     required this.urlImage,
   }) : super(key: key);
-
-  Future<bool> _isAddedCocktailToCart() async {
-    bool _result = false;
-    int _sizeOfFirstList = 0;
-    bool quantityHasChanged = false;
-    var listOfCocktails =
-        await CocktailCartRepository.getAllCocktailsIntoDatabase();
-    _sizeOfFirstList = listOfCocktails.length;
-    if (listOfCocktails.isEmpty) {
-      var quantity = 1;
-      quantityHasChanged = true;
-      var setCocktailCart = CartCocktail(
-          cocktailId!, cocktailTitle!, "N/A", urlImage, 15, quantity);
-      CocktailCartRepository.addCocktailIntoDatabase(setCocktailCart);
-    } else {
-
-    }
-
-    var newListOfCocktails =
-        await CocktailCartRepository.getAllCocktailsIntoDatabase();
-    if (_sizeOfFirstList < newListOfCocktails.length) {
-      _result = true;
-    } else {
-      _result = false;
-    }
-
-    /*CocktailCartRepository.getAllCocktailsIntoDatabase().then(
-      (listOfCartCocktails) {
-        _sizeOfFirstList = listOfCartCocktails.length;
-        if (listOfCartCocktails.isEmpty) {
-          cocktailToAdd.quantity = 1;
-          quantityHasChanged = true;
-          CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
-        } else {
-          for (var cocktail in listOfCartCocktails) {
-            if (cocktail.id == cocktailToAdd.id) {
-              int newQuantity = 0;
-              newQuantity = cocktail.quantity;
-              newQuantity += 1;
-              cocktailToAdd.quantity = newQuantity;
-              quantityHasChanged = true;
-              CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
-            } else {
-              cocktailToAdd.quantity = 1;
-              quantityHasChanged = false;
-              CocktailCartRepository.addCocktailIntoDatabase(cocktailToAdd);
-            }
-          }
-        }
-      },
-    );*/
-    return _result;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +127,9 @@ class ItemCardCocktail extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         if (cocktailId != null && cocktailTitle != null) {
-                          var successToAdd = _isAddedCocktailToCart();
+                          var successToAdd =
+                              CartViewModel.isAddedCocktailToCart(
+                                  cocktailId!, cocktailTitle!, urlImage);
                           successToAdd.then((success) => {
                                 if (success)
                                   {
