@@ -2,16 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saucey/details/views/detail_cocktail.dart';
 
-class ItemCardCocktail extends StatelessWidget {
+class ItemCardNoAlcoholic extends StatelessWidget {
   final String? cocktailTitle;
   final String? urlImage;
   final String? id;
 
-  const ItemCardCocktail( {
+  //final String? alcoholicTag;
+
+  const ItemCardNoAlcoholic( {
     Key? key,
     required this.cocktailTitle,
     required this.urlImage,
     required this.id,
+    //required this.alcoholicTag
   }) : super(key: key);
 
   @override
@@ -52,75 +55,58 @@ class ItemCardCocktail extends StatelessWidget {
                     children: [
                       urlImage != null
                           ? Container(
-                              alignment: Alignment.center,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: SizedBox.fromSize(
-                                  size: const Size.fromRadius(35),
-                                  child: Image.network(urlImage!),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              alignment: Alignment.center,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: SizedBox.fromSize(
-                                  size: const Size.fromRadius(35),
-                                  child: Image.asset(
-                                      'assets/images/exemple_cocktail.png'),
-                                ),
-                              ),
-                            ),
-                      Align(
-                        heightFactor: 5.6,
-                        alignment: Alignment.bottomRight,
+                        alignment: Alignment.center,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
-                          child: Container(
-                            width: 50,
-                            height: 15,
-                            alignment: Alignment.center,
-                            color: const Color(0xffFFAF9A),
-                            child: Text(
-                              "Alcoholic",
-                              style: TextStyle(fontSize: 8),
-                            ),
+                          child: SizedBox.fromSize(
+                            size: const Size.fromRadius(35),
+                            child: Image.network(urlImage!),
                           ),
                         ),
                       )
+                          : Container(
+                        alignment: Alignment.center,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: SizedBox.fromSize(
+                            size: const Size.fromRadius(35),
+                            child: Image.asset(
+                                'assets/images/exemple_cocktail.png'),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 /** Cocktail title **/
                 cocktailTitle != null
                     ? Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 15),
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            cocktailTitle!,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'Prompt',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
-                          ),
-                        ),
-                      )
+                  padding: const EdgeInsets.only(left: 10, top: 15),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      cocktailTitle!,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontFamily: 'Prompt',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
+                    ),
+                  ),
+                )
                     : Padding(
-                        padding: const EdgeInsets.only(left: 7, top: 15),
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          child: const Text(
-                            "N/A",
-                            style: TextStyle(
-                                fontFamily: 'Prompt',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14),
-                          ),
-                        ),
-                      ),
+                  padding: const EdgeInsets.only(left: 7, top: 15),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "N/A",
+                      style: TextStyle(
+                          fontFamily: 'Prompt',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -133,7 +119,7 @@ class ItemCardCocktail extends StatelessWidget {
                       Text(
                         "15,30€",
                         style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       TextButton(
                         onPressed: () {},
