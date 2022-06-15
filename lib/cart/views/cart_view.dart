@@ -38,6 +38,25 @@ class _CartState extends State<Cart> {
     }
   }
 
+  _getTotalPrice(AsyncSnapshot<List<CartCocktail>> snapshot) {
+    if (snapshot.data != null) {
+      int _finalQuantity = 0;
+      int _finalPrice = 0;
+      for (var value in snapshot.data!) {
+        _finalQuantity += value.quantity;
+      }
+      _finalPrice = _finalQuantity * 15;
+      return Text(
+        _finalPrice.toString() + " €",
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'AlegreyaSans',
+            fontSize: 18,
+            color: Colors.white),
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -133,13 +152,22 @@ class _CartState extends State<Cart> {
                           fontSize: 18,
                           color: Colors.white),
                     ),
-                    Text(
-                      '30,50€',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'AlegreyaSans',
-                          fontSize: 18,
-                          color: Colors.white),
+                    FutureBuilder<List<CartCocktail>>(
+                      future: futureListCardCocktail,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          print('Error : ${snapshot.error}');
+                          return const Text("An error occurs, try later.");
+                        } else if (snapshot.hasData) {
+                          return _getTotalPrice(snapshot);
+                        }
+                        return Container(
+                          width: 50,
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: const CircularProgressIndicator(),
+                        );
+                      },
                     )
                   ],
                 ),
