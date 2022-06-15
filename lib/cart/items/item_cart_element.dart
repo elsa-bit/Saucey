@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
 class ItemCartElement extends StatelessWidget {
+  final String id;
   final String? photo;
   final String name;
   final String category;
   final String price;
   final int quantity;
+  final Function(bool) callback;
 
   const ItemCartElement(
       {Key? key,
+      required this.id,
       required this.photo,
       required this.name,
       required this.category,
       required this.price,
-      required this.quantity})
+      required this.quantity,
+      required this.callback})
       : super(key: key);
 
   @override
@@ -78,9 +82,14 @@ class ItemCartElement extends StatelessWidget {
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
           ),
-          Icon(
-            Icons.remove_circle,
-            color: Colors.grey,
+          GestureDetector(
+            onTap: () {
+              callback(true);
+            },
+            child: Icon(
+              Icons.remove_circle,
+              color: Colors.grey,
+            ),
           ),
         ],
       ),

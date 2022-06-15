@@ -24,11 +24,28 @@ class _CartState extends State<Cart> {
             width: double.infinity,
             height: 100,
             child: ItemCartElement(
+              id: snapshot.data![index].id,
               photo: snapshot.data![index].cocktailUrlImage,
               name: snapshot.data![index].cocktailName,
               category: snapshot.data![index].cocktailCategory,
               price: snapshot.data![index].cocktailPrice.toString(),
               quantity: snapshot.data![index].quantity,
+              callback: (bool isClicked) {
+                if (isClicked) {
+                  var cocktail = CartCocktail(
+                      snapshot.data![index].id,
+                      snapshot.data![index].cocktailName,
+                      snapshot.data![index].cocktailCategory,
+                      snapshot.data![index].cocktailUrlImage,
+                      snapshot.data![index].cocktailPrice,
+                      snapshot.data![index].quantity);
+                  CocktailCartRepository.deleteCocktailIntoDatabase(cocktail);
+                  setState(() {
+                    futureListCardCocktail =
+                        CocktailCartRepository.getAllCocktailsIntoDatabase();
+                  });
+                }
+              },
             ),
           );
         },
