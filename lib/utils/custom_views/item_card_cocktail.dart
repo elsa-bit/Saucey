@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saucey/cart/view_model/cart_view_model.dart';
+import 'package:saucey/details/views/detail_cocktail.dart';
 import 'package:saucey/utils/constants.dart';
 
 class ItemCardCocktail extends StatelessWidget {
@@ -38,48 +39,60 @@ class ItemCardCocktail extends StatelessWidget {
                 alignment: Alignment.center,
                 width: 120,
                 height: 90,
-                child: Stack(
-                  children: [
-                    urlImage != null
-                        ? Container(
-                            alignment: Alignment.center,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: SizedBox.fromSize(
-                                size: const Size.fromRadius(35),
-                                child: Image.network(urlImage!),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                          return Detail(id: cocktailId);
+                        },
+                      ),
+                    );
+                  },
+                  child: Stack(
+                    children: [
+                      urlImage != null
+                          ? Container(
+                              alignment: Alignment.center,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: SizedBox.fromSize(
+                                  size: const Size.fromRadius(35),
+                                  child: Image.network(urlImage!),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              alignment: Alignment.center,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: SizedBox.fromSize(
+                                  size: const Size.fromRadius(35),
+                                  child: Image.asset(
+                                      'assets/images/exemple_cocktail.png'),
+                                ),
                               ),
                             ),
-                          )
-                        : Container(
+                      Align(
+                        heightFactor: 5.6,
+                        alignment: Alignment.bottomRight,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Container(
+                            width: 50,
+                            height: 15,
                             alignment: Alignment.center,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: SizedBox.fromSize(
-                                size: const Size.fromRadius(35),
-                                child: Image.asset(
-                                    'assets/images/exemple_cocktail.png'),
-                              ),
+                            color: const Color(0xffFFAF9A),
+                            child: Text(
+                              "Alcoholic",
+                              style: TextStyle(fontSize: 8),
                             ),
-                          ),
-                    Align(
-                      heightFactor: 5.6,
-                      alignment: Alignment.bottomRight,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Container(
-                          width: 50,
-                          height: 15,
-                          alignment: Alignment.center,
-                          color: const Color(0xffFFAF9A),
-                          child: Text(
-                            "Alcoholic",
-                            style: TextStyle(fontSize: 8),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
               /** Cocktail title **/

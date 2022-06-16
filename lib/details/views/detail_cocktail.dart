@@ -145,7 +145,7 @@ class _DetailState extends State<Detail> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          "15,30€",
+                          "15€",
                           style: TextStyle(color: Colors.black, fontSize: 20),
                         )
                       ],
