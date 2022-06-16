@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saucey/cart/view_model/cart_view_model.dart';
 import 'package:saucey/details/data_model_detail.dart';
 import 'package:saucey/details/viewmodel_detail.dart';
 import 'package:saucey/utils/MyColors.dart';
@@ -34,11 +35,10 @@ class _DetailState extends State<Detail> {
     var inst = snapshot.data?.dataClassDetail[0].instruction;
     var alc = snapshot.data?.dataClassDetail[0].alcoholic;
 
-
     //Rassembler tous les ingredients en une liste
     List<String> addIngredient = [];
-    void testIngredient(String? ing){
-      if(ing != null){
+    void testIngredient(String? ing) {
+      if (ing != null) {
         addIngredient.add(ing);
       }
     }
@@ -50,8 +50,6 @@ class _DetailState extends State<Detail> {
     testIngredient(ing5);
     testIngredient(ing6);
     testIngredient(ing7);
-
-
 
     //Convertir la liste en String
     var detailResult = addIngredient.join(" // ");
@@ -182,9 +180,7 @@ class _DetailState extends State<Detail> {
                         Expanded(
                           child: ListView(
                             padding: const EdgeInsets.all(1),
-                            children: [
-                              Text(detailResult)
-                            ],
+                            children: [Text(detailResult)],
                           ),
                         ),
                       ],
@@ -243,6 +239,65 @@ class _DetailState extends State<Detail> {
                   /**
                    * Bouton d'achat
                    */
+                  TextButton(
+                    onPressed: () {
+                      if (widget.id != null) {
+                        var successToAdd = CartViewModel.isAddedCocktailToCart(
+                            widget.id!, name, image);
+                        successToAdd.then((success) => {
+                              if (success)
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                          Text("Cocktail added to the cart"),
+                                    ),
+                                  ),
+                                }
+                              else
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                          Text("The cocktail can't be added"),
+                                    ),
+                                  ),
+                                }
+                            });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text("A problem occurs, please try later "),
+                          ),
+                        );
+                      }
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      minimumSize: Size.zero,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                        height: 35,
+                        width: 120,
+                        padding: EdgeInsets.only(top: 3, bottom: 3),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: MyColors.bordeaux,
+                        ),
+                        child: Text(
+                          "Ajouter au panier",
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  /*
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -268,6 +323,7 @@ class _DetailState extends State<Detail> {
                       ),
                     ],
                   ),
+                  */
                 ],
               ),
             ),
