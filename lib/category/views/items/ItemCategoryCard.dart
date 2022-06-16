@@ -49,6 +49,7 @@ class ItemCategoryCard extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 textCard,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: 'Prompt',
                     fontWeight: FontWeight.bold,

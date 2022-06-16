@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:saucey/cart/view_model/cart_view_model.dart';
 import 'package:saucey/details/views/detail_cocktail.dart';
 
 class ItemCardNoAlcoholic extends StatelessWidget {
@@ -7,14 +8,12 @@ class ItemCardNoAlcoholic extends StatelessWidget {
   final String? urlImage;
   final String? id;
 
-  //final String? alcoholicTag;
 
   const ItemCardNoAlcoholic( {
     Key? key,
     required this.cocktailTitle,
     required this.urlImage,
     required this.id,
-    //required this.alcoholicTag
   }) : super(key: key);
 
   @override
@@ -117,12 +116,45 @@ class ItemCardNoAlcoholic extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "15,30€",
+                        "15€",
                         style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (id != null && cocktailTitle != null) {
+                            var successToAdd =
+                            CartViewModel.isAddedCocktailToCart(
+                                id!, cocktailTitle!, urlImage);
+                            successToAdd.then((success) => {
+                              if (success)
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                      Text("Cocktail added to the cart"),
+                                    ),
+                                  ),
+                                }
+                              else
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                      Text("The cocktail can't be added"),
+                                    ),
+                                  ),
+                                }
+                            });
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                Text("A problem occurs, please try later "),
+                              ),
+                            );
+                          }
+                        },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                           minimumSize: Size.zero,
