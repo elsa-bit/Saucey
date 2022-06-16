@@ -11,4 +11,7 @@ abstract class CocktailCartDao {
 
   @update
   Future<void> updateCocktail(CartCocktail cartCocktail);
+
+  @delete
+  Future<void> deleteCartCocktail(CartCocktail cartCocktail);
 }

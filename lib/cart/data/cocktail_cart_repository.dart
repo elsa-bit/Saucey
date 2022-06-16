@@ -25,4 +25,11 @@ class CocktailCartRepository {
     final cocktailDao = database.cartCocktailDao;
     await cocktailDao.updateCocktail(cocktailToUpdate);
   }
+
+  static void deleteCocktailIntoDatabase(CartCocktail cocktailToDelete) async {
+    final database =
+        await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+    final cocktailDao = database.cartCocktailDao;
+    await cocktailDao.deleteCartCocktail(cocktailToDelete);
+  }
 }

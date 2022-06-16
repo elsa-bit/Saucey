@@ -24,17 +24,53 @@ class _CartState extends State<Cart> {
             width: double.infinity,
             height: 100,
             child: ItemCartElement(
+              id: snapshot.data![index].id,
               photo: snapshot.data![index].cocktailUrlImage,
               name: snapshot.data![index].cocktailName,
               category: snapshot.data![index].cocktailCategory,
               price: snapshot.data![index].cocktailPrice.toString(),
               quantity: snapshot.data![index].quantity,
+              callback: (bool isClicked) {
+                if (isClicked) {
+                  var cocktail = CartCocktail(
+                      snapshot.data![index].id,
+                      snapshot.data![index].cocktailName,
+                      snapshot.data![index].cocktailCategory,
+                      snapshot.data![index].cocktailUrlImage,
+                      snapshot.data![index].cocktailPrice,
+                      snapshot.data![index].quantity);
+                  CocktailCartRepository.deleteCocktailIntoDatabase(cocktail);
+                  setState(() {
+                    futureListCardCocktail =
+                        CocktailCartRepository.getAllCocktailsIntoDatabase();
+                  });
+                }
+              },
             ),
           );
         },
       );
     } else {
       return Text("No cocktail chosen yet !");
+    }
+  }
+
+  _getTotalPrice(AsyncSnapshot<List<CartCocktail>> snapshot) {
+    if (snapshot.data != null) {
+      int _finalQuantity = 0;
+      int _finalPrice = 0;
+      for (var value in snapshot.data!) {
+        _finalQuantity += value.quantity;
+      }
+      _finalPrice = _finalQuantity * 15;
+      return Text(
+        _finalPrice.toString() + " €",
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'AlegreyaSans',
+            fontSize: 18,
+            color: Colors.white),
+      );
     }
   }
 
@@ -133,13 +169,22 @@ class _CartState extends State<Cart> {
                           fontSize: 18,
                           color: Colors.white),
                     ),
-                    Text(
-                      '30,50€',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'AlegreyaSans',
-                          fontSize: 18,
-                          color: Colors.white),
+                    FutureBuilder<List<CartCocktail>>(
+                      future: futureListCardCocktail,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          print('Error : ${snapshot.error}');
+                          return const Text("An error occurs, try later.");
+                        } else if (snapshot.hasData) {
+                          return _getTotalPrice(snapshot);
+                        }
+                        return Container(
+                          width: 50,
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: const CircularProgressIndicator(),
+                        );
+                      },
                     )
                   ],
                 ),

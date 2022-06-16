@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saucey/cart/view_model/cart_view_model.dart';
+import 'package:saucey/utils/constants.dart';
 
 class ItemCardCocktail extends StatelessWidget {
   final String? cocktailId;
@@ -133,6 +134,7 @@ class ItemCardCocktail extends StatelessWidget {
                           successToAdd.then((success) => {
                                 if (success)
                                   {
+                                    Constants.quantityAllCocktails += 1,
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content:
