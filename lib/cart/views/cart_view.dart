@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saucey/cart/data/cocktail_cart_repository.dart';
 import 'package:saucey/cart/items/item_cart_element.dart';
 import 'package:saucey/cart/model/cart_cocktail_model.dart';
+import 'package:saucey/cart/view_model/cart_view_model.dart';
 
 import '../../utils/MyColors.dart';
 
@@ -161,31 +162,63 @@ class _CartState extends State<Cart> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Pay',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'AlegreyaSans',
-                          fontSize: 18,
-                          color: Colors.white),
-                    ),
-                    FutureBuilder<List<CartCocktail>>(
-                      future: futureListCardCocktail,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          print('Error : ${snapshot.error}');
-                          return const Text("An error occurs, try later.");
-                        } else if (snapshot.hasData) {
-                          return _getTotalPrice(snapshot);
-                        }
-                        return Container(
-                          width: 50,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: const CircularProgressIndicator(),
-                        );
+                    TextButton(
+                      onPressed: () {
+                        var successToAdd = CartViewModel.isDeleteCart();
+                        successToAdd.then((success) => {
+                              if (success)
+                                {
+                                  setState(() {
+                                    futureListCardCocktail =
+                                        CocktailCartRepository
+                                            .getAllCocktailsIntoDatabase();
+                                  }),
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Accepted Paiement"),
+                                    ),
+                                  ),
+                                }
+                              else
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Refused Paiement"),
+                                    ),
+                                  ),
+                                }
+                            });
                       },
-                    )
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        minimumSize: Size.zero,
+                      ),
+                      child: Container(
+                        width: 354,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Pay",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'AlegreyaSans',
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              '30,50€',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'AlegreyaSans',
+                                  fontSize: 18,
+                                  color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

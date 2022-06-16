@@ -12,6 +12,9 @@ abstract class CocktailCartDao {
   @update
   Future<void> updateCocktail(CartCocktail cartCocktail);
 
+  @Query('DELETE FROM CartCocktail')
+  Future<CartCocktail?> deleteCocktail();
+
   @delete
   Future<void> deleteCartCocktail(CartCocktail cartCocktail);
 }
