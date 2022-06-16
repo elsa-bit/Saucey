@@ -29,6 +29,7 @@ class CartViewModel {
           cocktailId!, cocktailTitle!, "N/A", urlImage, 15, _newQuantity);
       CocktailCartRepository.updateCocktailIntoDatabase(setCocktailCart);
     }
+
     var newListOfCocktails =
         await CocktailCartRepository.getAllCocktailsIntoDatabase();
     if (_sizeOfFirstList < newListOfCocktails.length || _alreadyExist) {
@@ -38,4 +39,17 @@ class CartViewModel {
     }
     return _result;
   }
+
+
+  static Future<bool> isDeleteCart() async {
+    CocktailCartRepository.deleteAllCocktailsIntoDatabase();
+    var deleteList = await CocktailCartRepository.getAllCocktailsIntoDatabase();
+    if( deleteList.length == 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+
 }

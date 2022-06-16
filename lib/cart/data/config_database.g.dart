@@ -161,6 +161,18 @@ class _$CocktailCartDao extends CocktailCartDao {
   }
 
   @override
+  Future<CartCocktail?> deleteCocktail() async {
+    return _queryAdapter.query('DELETE FROM CartCocktail',
+        mapper: (Map<String, Object?> row) => CartCocktail(
+            row['id'] as String,
+            row['cocktailName'] as String,
+            row['cocktailCategory'] as String,
+            row['cocktailUrlImage'] as String?,
+            row['cocktailPrice'] as int,
+            row['quantity'] as int));
+  }
+
+  @override
   Future<void> insertCocktail(CartCocktail cartCocktail) async {
     await _cartCocktailInsertionAdapter.insert(
         cartCocktail, OnConflictStrategy.abort);
