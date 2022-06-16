@@ -207,13 +207,23 @@ class _CartState extends State<Cart> {
                                   fontFamily: 'AlegreyaSans',
                                   color: Colors.white),
                             ),
-                            Text(
-                              '30,50€',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'AlegreyaSans',
-                                  fontSize: 18,
-                                  color: Colors.white),
+                            FutureBuilder<List<CartCocktail>>(
+                              future: futureListCardCocktail,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) {
+                                  print('Error : ${snapshot.error}');
+                                  return const Text(
+                                      "An error occurs, try later.");
+                                } else if (snapshot.hasData) {
+                                  return _getTotalPrice(snapshot);
+                                }
+                                return Container(
+                                  width: 50,
+                                  height: 50,
+                                  alignment: Alignment.center,
+                                  child: const CircularProgressIndicator(),
+                                );
+                              },
                             )
                           ],
                         ),
