@@ -34,7 +34,10 @@ class _CocktailState extends State<Cocktail> {
         },
       );
     } else {
-      return const Text("No cocktails available.");
+      return const Padding(
+        padding: EdgeInsets.only(top: 60.0),
+        child: NoCocktailFound(),
+      );
     }
   }
 

@@ -48,8 +48,6 @@ class _SearchState extends State<Search> {
           );
         },
       );
-    } else {
-      return const Text("No cocktail exists.");
     }
   }
 
