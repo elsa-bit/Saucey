@@ -3,6 +3,7 @@ import 'package:saucey/cart/data/cocktail_cart_repository.dart';
 import 'package:saucey/cart/items/item_cart_element.dart';
 import 'package:saucey/cart/model/cart_cocktail_model.dart';
 import 'package:saucey/cart/view_model/cart_view_model.dart';
+import 'package:saucey/utils/custom_views/no_cocktail_in_cart.dart';
 
 import '../../utils/MyColors.dart';
 
@@ -51,8 +52,6 @@ class _CartState extends State<Cart> {
           );
         },
       );
-    } else {
-      return Text("No cocktail chosen yet !");
     }
   }
 
@@ -124,25 +123,35 @@ class _CartState extends State<Cart> {
          * List of items
          */
         SizedBox(
-            width: double.infinity,
-            height: 380,
-            child: FutureBuilder<List<CartCocktail>>(
-              future: futureListCardCocktail,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  print('Error : ${snapshot.error}');
-                  return const Text("An error occurs, try later.");
-                } else if (snapshot.hasData) {
-                  return _getListOfCocktailsCard(snapshot);
+          width: double.infinity,
+          height: 380,
+          child: FutureBuilder<List<CartCocktail>>(
+            future: futureListCardCocktail,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                print('Error : ${snapshot.error}');
+              } else {
+                if (snapshot.hasData) {
+                  if (snapshot.data?.length != 0 &&
+                      snapshot.data?.isNotEmpty == true) {
+                    return _getListOfCocktailsCard(snapshot);
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 35.0),
+                      child: NoCocktailFoundInCart(),
+                    );
+                  }
                 }
-                return Container(
-                  width: 50,
-                  height: 50,
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator(),
-                );
-              },
-            )),
+              }
+              return Container(
+                width: 50,
+                height: 50,
+                alignment: Alignment.center,
+                child: const CircularProgressIndicator(),
+              );
+            },
+          ),
+        ),
         /**
          * Payment info
          */
@@ -212,8 +221,6 @@ class _CartState extends State<Cart> {
                               builder: (context, snapshot) {
                                 if (snapshot.hasError) {
                                   print('Error : ${snapshot.error}');
-                                  return const Text(
-                                      "An error occurs, try later.");
                                 } else if (snapshot.hasData) {
                                   return _getTotalPrice(snapshot);
                                 }

@@ -86,6 +86,7 @@ flutter:
     - assets/images/red_cocktail.png
     - assets/saucey_logo.png
     - assets/images/no_cocktail_found.png
+    - assets/images/no_cocktail_cart.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
